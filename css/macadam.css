@@ -1,0 +1,881 @@
+
+
+#menubar {
+  display: none !important;
+}
+
+#content.content {
+  margin-left: 60px !important;
+  width: calc(100% - 60px) !important;
+  padding: 40px 50px !important;
+  box-sizing: border-box;
+  background: transparent !important;
+  border: none !important;
+}
+
+.macadam-main-container {
+  margin-left: 60px;
+  width: calc(100% - 60px);
+}
+
+.macadam-main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  width: 100%;
+}
+
+
+/* header */
+
+.macadam-header-banner {
+  width: 100%;
+  height: 250px;
+  background: linear-gradient(135deg, #b33939 0%, #d1523d 50%, #e67e22 100%); 
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-sizing: border-box;
+  margin-bottom: 20px;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.macadam-header-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  max-width: 600px;
+  padding: 0 20px;
+  z-index: 2;
+}
+
+.macadam-gallery-title, 
+.macadam-header-banner a {
+  font-family: sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #ffffff !important;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0;
+  text-decoration: none !important;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+.macadam-header-search {
+  position: relative;
+  width: 100%;
+  max-width: 450px;
+}
+
+.macadam-header-search form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.macadam-header-search .search-icon {
+  position: absolute;
+  left: 15px;
+  font-size: 16px;
+  color: #777777;
+  pointer-events: none;
+}
+
+.macadam-header-search input[type="text"] {
+  width: 100%;
+  padding: 12px 15px 12px 45px;
+  font-size: 15px;
+  border: none;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #333333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  outline: none;
+  transition: box-shadow 0.2s ease;
+}
+
+.macadam-header-search input[type="text"]::placeholder {
+  color: #aaaaaa;
+}
+
+.macadam-header-search input[type="text"]:focus {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
+}
+
+
+/* sidebar */
+
+.macadam-sidebar-nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 60px;
+  background-color: #ffffff;
+  border-right: 1px solid #e5e5e5;
+  z-index: 1030;
+}
+
+.sidebar-menu-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  padding-top: 1.5rem;
+}
+
+.sidebar-icon-link {
+  font-size: 22px;
+  text-decoration: none !important;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+a.sidebar-icon-link:hover {
+  transform: scale(1.2);
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+.macadam-index-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  background-color: transparent;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.macadam-breadcrumb-zone {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.macadam-home-badge {
+  font-size: 20px;
+}
+
+#breadcrumb h2 {
+  font-size: 22px;
+  font-weight: 600;
+  margin: 0;
+  text-decoration: none !important;
+}
+
+
+#breadcrumb a {
+  color: black !important;
+}
+
+.macadam-main-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+.macadam-main-grid.view-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.macadam-main-grid.view-list .album-card {
+  display: flex;
+  flex-direction: row; 
+  width: 100%;
+}
+
+.macadam-actions-zone .categoryActions {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  list-style: none !important;
+  margin: 0;
+  padding: 0;
+}
+
+.macadam-actions-zone .categoryActions li {
+  list-style: none !important;
+  position: relative;
+}
+
+.macadam-actions-zone .categoryActions li a, 
+.macadam-action-emoji {
+  font-size: 20px;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  display: inline-block;
+}
+
+.macadam-actions-zone .categoryActions li a:hover,
+.macadam-action-emoji:hover {
+  transform: scale(1.15);
+  text-decoration: none !important;
+}
+
+.macadam-actions-zone ul {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.macadam-actions-zone ul li a {
+  font-size: 20px; 
+  text-decoration: none !important;
+  cursor: pointer;
+  display: inline-block;
+  transition: transform 0.2s ease;
+}
+
+.macadam-actions-zone ul li a:hover {
+  transform: scale(1.15); 
+}
+
+/* Par défaut, la section Liste est complètement cachée */
+.list-mode-active {
+  display: none !important;
+}
+
+/* Par défaut, la section Grille est visible */
+.grid-mode-active {
+  display: block !important;
+}
+
+/* --- QUAND ON ACTIVE LE MODE LISTE (au clic sur l'émoji) --- */
+
+/* On cache la section Grille */
+.layout-view-list .grid-mode-active {
+  display: none !important;
+}
+
+/* On affiche la section Liste */
+.layout-view-list .list-mode-active {
+  display: block !important;
+}
+
+/* Albums card */
+
+
+
+.macadam-albums-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.macadam-album-card {
+  display: flex;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: 180px;
+}
+
+.macadam-album-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.macadam-album-thumbs {
+  display: flex;
+  width: 240px; 
+  height: 100%;
+  text-decoration: none !important;
+  flex-shrink: 0;
+}
+
+.main-thumb-container {
+  flex: 2;
+  height: 100%;
+  overflow: hidden;
+}
+
+.macadam-album-thumbs .main-thumb,
+.macadam-album-thumbs .no-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #f7d6d6;
+}
+
+.sub-thumbs-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.thumb-sub-block {
+  flex: 1;
+  width: 100%;
+  transition: opacity 0.2s ease;
+}
+
+.thumb-sub-block.sub-orange {
+  background-color: #f4a261;
+}
+
+.thumb-sub-block.sub-beige {
+  background-color: #e9c46a;
+}
+
+.macadam-album-card:hover .thumb-sub-block {
+  opacity: 0.9;
+}
+
+.macadam-album-infos {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.macadam-album-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.album-title {
+  margin: 0 0 4px 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.album-title a {
+  color: #1e2044 !important;
+  text-decoration: none !important;
+}
+
+.album-title a:hover {
+  color: #e66741 !important;
+}
+
+.album-meta {
+  font-size: 13px;
+  color: #888888;
+}
+
+.album-actions-trigger {
+  font-size: 20px;
+  color: #1e2044;
+  cursor: pointer;
+  padding: 0 5px;
+  line-height: 1;
+}
+.album-description {
+  font-size: 13px;
+  line-height: 1.6;
+  color: #666666;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.album-description.empty-desc {
+  color: #b5b5b5;
+  font-style: italic;
+}
+
+.album-footer-icon {
+  position: absolute;
+  right: 24px;
+  bottom: 16px;
+  font-size: 16px;
+  color: #1e2044;
+  opacity: 0.8;
+}
+
+/* list mode */
+
+.macadam-albums-container.macadam-main-grid-active {
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  margin: 0 auto;
+  gap: 24px;
+  width: 100%;
+}
+
+.macadam-albums-container.macadam-main-grid-active .macadam-album-card {
+  display: flex;
+  flex-direction: row;
+  height: 180px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.macadam-albums-container.macadam-main-grid-active .macadam-album-thumbs {
+  min-width: 240px;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.macadam-albums-container.macadam-main-grid-active .macadam-album-infos {
+  display: flex;
+  flex-direction: column;
+  padding: 20px 24px;
+  flex-grow: 1;
+}
+
+.macadam-albums-container.macadam-main-grid-active .album-description-zone {
+  display: block;
+}
+
+/* grid mode */
+
+.macadam-albums-container.macadam-main-grid-active.view-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(380px, 1fr)) !important;
+  gap: 24px;
+  max-width: 100%;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-card {
+  flex-direction: column !important;
+  height: auto !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-thumbs {
+  width: 100% !important;
+  height: 200px !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-infos {
+  padding: 16px !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .album-description-zone {
+  display: none !important;
+}
+
+/* (SWITCHBOX)  */
+
+.switchBox {
+  position: absolute;
+  top: 35px !important;
+  right: 0 !important;
+  left: auto !important;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 12px;
+  border-radius: 6px;
+  z-index: 1050;
+  white-space: nowrap;
+}
+
+/* thumbnails */
+
+.macadam-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 20px;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.macadam-photo-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.macadam-photo-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+}
+
+.macadam-photo-link {
+  width: 100%;
+  height: 160px;
+  display: block;
+  overflow: hidden;
+  background-color: #f7d6d6;
+}
+
+.photo-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.macadam-photo-card:hover .photo-thumb-img {
+  transform: scale(1.03);
+}
+.macadam-photo-infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: #ffffff;
+}
+
+.macadam-photo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  overflow: hidden;
+}
+
+.photo-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2044;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.photo-meta {
+  font-size: 11px;
+  color: #888888;
+  font-weight: 500;
+}
+
+.photo-actions-trigger {
+  font-size: 16px;
+  color: #1e2044;
+  cursor: pointer;
+  padding-left: 10px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+
+.photo-actions-trigger:hover {
+  opacity: 1;
+}
+
+/* picture */
+
+.macadam-picture-viewer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.macadam-main-photo-stage {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  background: #fdfdfd;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+.macadam-photo-display {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-height: 60vh;
+}
+
+.macadam-photo-display img {
+  max-width: 100%;
+  max-height: 60vh;
+  object-fit: contain;
+  border-radius: 4px;
+}
+
+.macadam-nav-arrow {
+  width: 45px;
+  height: 45px;
+  background-color: #1e2044;
+  color: #ffffff !important;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none !important;
+  font-size: 28px;
+  font-weight: bold;
+  transition: transform 0.2s, background-color 0.2s;
+  cursor: pointer;
+  user-select: none;
+}
+
+.macadam-nav-arrow:hover {
+  background-color: #e66741;
+  transform: scale(1.05);
+}
+
+.macadam-nav-arrow.disabled {
+  background-color: #e5e5e5;
+  color: #aaaaaa !important;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.macadam-carousel-strip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  padding: 15px;
+  background-color: #f7f7f9;
+  border-radius: 8px;
+  border: 1px solid #e5e5e5;
+}
+
+.strip-thumb-item {
+  width: 80px;
+  height: 60px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+  opacity: 0.6;
+}
+
+.strip-thumb-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.strip-thumb-item:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+.strip-thumb-item.active {
+  border-color: #e66741;
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.strip-thumb-placeholder {
+  width: 80px;
+  height: 60px;
+  background-color: #e5e5e5;
+  border-radius: 6px;
+  opacity: 0.3;
+}
+
+
+/* calendar */
+
+/* --- CONTENEUR GLOBAL --- */
+.macadam-calendar-wrapper {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+/* --- BARRE DE NAVIGATION --- */
+.macadam-calendar-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.cal-select-sort {
+  padding: 6px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  background-color: #ffffff;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+}
+
+.cal-date-picker-zone {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cal-nav-arrow {
+  text-decoration: none;
+  color: #334155;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px 8px;
+  transition: opacity 0.2s;
+}
+
+.cal-nav-arrow:hover {
+  opacity: 0.6;
+}
+
+.cal-current-date {
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #1e293b;
+}
+
+.cal-view-modes {
+  display: flex;
+  background: #e2e8f0;
+  padding: 4px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.cal-btn-mode {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.cal-btn-mode.active {
+  background: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* --- TABLEAU DU CALENDRIER --- */
+.macadam-calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.macadam-calendar-table th {
+  background: #f1f5f9;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cal-day-cell {
+  width: 14.28%;
+  height: 120px; /* Hauteur fixe pour faire de jolies cases carrées/rectangulaires */
+  vertical-align: top;
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.cal-day-cell.outside-month {
+  background-color: #f8fafc;
+}
+
+.cal-day-cell .cell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cal-day-cell .day-number {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.cal-day-cell.has-photos .day-number {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+/* Badge Bleu des Photos */
+.photos-badge {
+  background-color: #3b5284;
+  color: #ffffff;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* --- BLOCS DE COULEUR EMPILÉS (Mockup) --- */
+.cell-content {
+  height: calc(100% - 24px);
+  display: flex;
+  align-items: flex-end;
+}
+
+.calendar-thumb-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+.thumb-preview-stack {
+  display: flex;
+  gap: 6px;
+}
+
+.color-block {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.block-orange { background-color: #e26d43; }
+.block-beige  { background-color: #fcd3a1; }
+.block-dark   { 
+  background-color: #1e293b; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plus-icon {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1;
+}
