@@ -27,12 +27,6 @@
 <link rel="start" title="{'Home'|translate}" href="{$U_HOME}" >
 <link rel="search" title="{'Search'|translate}" href="{$ROOT_URL}search.php" >
 
-{if isset($first.U_IMG)   }<link rel="first" title="{'First'|translate}" href="{$first.U_IMG}" >{/if}
-{if isset($previous.U_IMG)}<link rel="prev" title="{'Previous'|translate}" href="{$previous.U_IMG}" >{/if}
-{if isset($next.U_IMG)    }<link rel="next" title="{'Next'|translate}" href="{$next.U_IMG}" >{/if}
-{if isset($last.U_IMG)    }<link rel="last" title="{'Last'|translate}" href="{$last.U_IMG}" >{/if}
-{if isset($U_UP)          }<link rel="up" title="{'Thumbnails'|translate}" href="{$U_UP}" >{/if}
-
 {if isset($U_PREFETCH)    }<link rel="prefetch" href="{$U_PREFETCH}">{/if}
 {if isset($U_CANONICAL)   }<link rel="canonical" href="{$U_CANONICAL}">{/if}
 
@@ -41,16 +35,20 @@
 {strip}
 {foreach from=$themes item=theme}
   {if $theme.load_css}
-    {if $theme.id == 'macadam'}
-      {combine_css path="themes/`$theme.id`/css/`$theme.id`.css" order=-10}
-    {else}
+    {* For the parent theme (e.g. 'default'), load its standard 'theme.css' file. *}
+    {if $theme.id != 'macadam'}
       {combine_css path="themes/`$theme.id`/theme.css" order=-10}
+    {* For our specific 'macadam' theme, load its CSS from the correct subfolder. *}
+    {else}
+      {combine_css path="themes/macadam/css/macadam.css" order=-10}
     {/if}
   {/if}
   {if !empty($theme.local_head)}
     {include file=$theme.local_head load_css=$theme.load_css}
   {/if}
 {/foreach}
+
+{combine_css path="themes/macadam/css/header.css" order=-9}
 
 {combine_script id="jquery" load="footer"}
 {/strip}

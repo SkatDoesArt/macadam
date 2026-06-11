@@ -48,7 +48,10 @@
               <a href="{$cat.URL}">{$cat.NAME}</a>
             </h3>
             <span class="album-meta">
-              {$cat.CAPTION_NB_IMAGES}
+              {$cat.nb_images|default:0} photo{if $cat.nb_images|default:0 > 1}s{/if}
+              {if isset($cat.count_categories) and $cat.count_categories > 0}
+                , {$cat.count_categories} album{if $cat.count_categories > 1}s{/if}
+              {/if}
             </span>
           </div>
 
