@@ -40,7 +40,7 @@
                 jQuery('#derivativeChecked'+typeMap).css('visibility','visible');
                 document.cookie = 'picture_deriv='+typeSave+';path=
               {/literal}{$COOKIE_PATH}
-              {literal}  ';
+              {literal}   ';
                 }
                 (window.SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");
               {/literal}{/footer_script}
@@ -118,7 +118,7 @@
               </a>
             {/if}
           {/strip}
-          
+
           {strip}
             {if isset($U_PHOTO_ADMIN)}
               <a id="cmdEditPhoto" href="{$U_PHOTO_ADMIN}" title="{'Edit photo'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
@@ -126,11 +126,11 @@
               </a>
             {/if}
           {/strip}
-          
+
           {strip}
             {if isset($U_CADDIE)}
               {footer_script}
-              {literal}  function addToCadie(aElement, rootUrl, id) {
+              {literal}   function addToCadie(aElement, rootUrl, id) {
                 if (aElement.disabled) return;
                 aElement.disabled=true;
                 var y = new PwgWS(rootUrl);
@@ -236,17 +236,9 @@
         <div class="sidebar-section-details">
           <ul class="macadam-info-list">
 
-            {if $display_info.author and isset($INFO_AUTHOR)}
-              <li>
-                <span class="info-icon">👤</span>
-                <span class="info-label">{'Author'|@translate}:</span>
-                <span class="info-value">{$INFO_AUTHOR}</span>
-              </li>
-            {/if}
-
             {if $display_info.created_on and isset($INFO_CREATION_DATE)}
               <li>
-                <span class="info-icon">📅</span>
+                <i class="icon-add-calendar"></i>
                 <span class="info-value">{$INFO_CREATION_DATE}</span>
               </li>
             {/if}
@@ -258,34 +250,30 @@
               </li>
             {/if}
 
-            {if $display_info.dimensions and isset($INFO_DIMENSIONS)}
-              <li>
-                <span class="info-icon">📐</span>
-                <span class="info-label">{'Dimensions'|@translate}:</span>
-                <span class="info-value">{$INFO_DIMENSIONS}</span>
-              </li>
-            {/if}
-
             {if $display_info.filesize and isset($INFO_FILESIZE)}
               <li>
                 <span class="info-icon">🖴</span>
-                <span class="info-label">{'Filesize'|@translate}:</span>
                 <span class="info-value">{$INFO_FILESIZE}</span>
+              </li>
+            {/if}
+
+            {if $display_info.author and isset($INFO_AUTHOR)}
+              <li>
+                <i class="icon-person"></i>
+                <span class="info-value">{$INFO_AUTHOR}</span>
               </li>
             {/if}
 
             {if $display_info.visits}
               <li>
-                <span class="info-icon">👁</span>
-                <span class="info-label">{'Visits'|@translate}:</span>
+                <i class="icon-eye"></i>
                 <span class="info-value">{$INFO_VISITS}</span>
               </li>
             {/if}
 
             {if $display_info.rating_score and isset($rate_summary)}
               <li>
-                <span class="info-icon">⭐</span>
-                <span class="info-label">Note :</span>
+                <i class="icon-star"></i>
                 <span class="info-value">
                   {if $rate_summary.count}
                     <span id="ratingScore">{$rate_summary.score}</span> <span id="ratingCount">({$rate_summary.count|@translate_dec:'%d rate':'%d rates'})</span>
@@ -293,9 +281,38 @@
                     <span id="ratingScore">{'no rate'|@translate}</span> <span id="ratingCount"></span>
                   {/if}
                 </span>
+                <span class="info-label">/5</span>
               </li>
             {/if}
+
+            {if $display_info.file and isset($display_info.file)}
+              <li>
+                <i class="icon-folded-picture"></i>
+                <span class="info-value">{$INFO_FILE}</span>
+              </li>
+            {/if}
+
+            {if $display_info.categories and isset($related_categories)}
+
+              {foreach from=$related_categories item=cat}
+                <li>
+                  <i class="icon-folder"></i>
+                  <span class="info-value">
+                    {$cat}
+                  </span>
+                </li>
+              {/foreach}
+            {/if}
+
+            {* {if $display_info.dimensions and isset($INFO_DIMENSIONS)}
+              <li>
+                <span class="info-icon">📐</span>
+                <span class="info-label">{'Dimensions'|@translate}:</span>
+                <span class="info-value">{$INFO_DIMENSIONS}</span>
+              </li>
+            {/if} *}
           </ul>
+
         </div>
 
         {if isset($rating)}
