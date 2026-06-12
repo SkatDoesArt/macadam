@@ -21,7 +21,7 @@ function macadam_get_header_albums() {
   
   // Fetch all categories the user has access to, ordered by their rank
   $query = '
-SELECT id, name, permalink, id_uppercat
+SELECT id, name, permalink, id_uppercat, count_images, count_categories
   FROM '.CATEGORIES_TABLE.'
     INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' ON id = cat_id AND user_id = '.$user['id'].'
   ORDER BY global_rank
@@ -35,11 +35,17 @@ SELECT id, name, permalink, id_uppercat
     $albums_by_id[$row['id']] = $row;
   }
   
+  // Calculate totals
+  $total_albums = count($albums_by_id);
+  $total_images = 0;
+  
   // Build a tree structure (root albums + sub-albums)
   $header_albums = array();
   foreach ($albums_by_id as $id => &$cat) {
     if (empty($cat['id_uppercat'])) {
       $header_albums[$id] = &$cat;
+      // Sum up the cumulative image counts from root albums
+      $total_images += $cat['count_images'];
     } else {
       if (isset($albums_by_id[$cat['id_uppercat']])) {
         $albums_by_id[$cat['id_uppercat']]['sub_albums'][] = &$cat;
@@ -49,6 +55,8 @@ SELECT id, name, permalink, id_uppercat
   unset($cat);
   
   $template->assign('MACADAM_HEADER_ALBUMS', $header_albums);
+  $template->assign('MACADAM_TOTAL_ALBUMS', $total_albums);
+  $template->assign('MACADAM_TOTAL_IMAGES', $total_images);
 
   // --- Fetch Tags ---
   $query_tags = 'SELECT id, name, url_name FROM '.TAGS_TABLE.' ORDER BY name ASC;';
@@ -61,14 +69,14 @@ SELECT id, name, permalink, id_uppercat
   $template->assign('MACADAM_HEADER_TAGS', $header_tags);
 
   // --- Fetch Favorites ---
-  // Fetch the user's favorite images (limit to 20 for the dropdown)
+  // Fetch the user's favorite images (limit to 10 for the dropdown)
   $query_favs = '
 SELECT i.id, i.name, i.file
   FROM '.FAVORITES_TABLE.' uf
     INNER JOIN '.IMAGES_TABLE.' i ON i.id = uf.image_id
   WHERE uf.user_id = '.$user['id'].'
   ORDER BY i.date_available DESC
-  LIMIT 20
+  LIMIT 10
 ;';
   $result_favs = pwg_query($query_favs);
   $header_favorites = array();

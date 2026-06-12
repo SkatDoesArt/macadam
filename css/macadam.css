@@ -1,8 +1,12 @@
 :root {
   --menu-icon: #090D31;
   --menu-icon-hover: #5C6AE2;
+  --clear: #ffffff;
 }
 
+a:hover {
+  border: none;
+}
 
 #menubar {
   display: none !important;
@@ -17,9 +21,14 @@
   border: none !important;
 }
 
+BODY {
+  margin: 0;
+}
+
 .macadam-main-container {
   margin-left: 60px;
   width: calc(100% - 60px);
+  box-sizing: border-box;
 }
 
 .macadam-main-grid {

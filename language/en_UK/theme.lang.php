@@ -1,0 +1,26 @@
+<?php
+
+// English language file for Macadam theme
+
+$lang['Home'] = 'Home';
+$lang['Search'] = 'Search';
+$lang['Albums'] = 'Albums';
+$lang['Images'] = 'Images';
+$lang['No albums'] = 'No albums';
+$lang['Total albums'] = 'Total albums';
+$lang['Total images'] = 'Total images';
+$lang['Discovery'] = 'Discovery';
+$lang['Tags'] = 'Tags';
+$lang['No tags'] = 'No tags';
+$lang['Favorites'] = 'Favorites';
+$lang['Collections'] = 'Collections';
+$lang['No collections'] = 'No collections';
+$lang['Login'] = 'Login';
+$lang['Profile'] = 'Profile';
+$lang['Account'] = 'Account';
+$lang['Administration'] = 'Administration';
+$lang['Customize'] = 'Customize';
+$lang['Notifications'] = 'Notifications';
+$lang['Add photos'] = 'Add photos';
+$lang['Edit photos'] = 'Edit photos';
+$lang['Logout'] = 'Logout';

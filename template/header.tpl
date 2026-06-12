@@ -75,55 +75,82 @@
     <div class="sidebar-menu-links">
       <a href="{$U_HOME}" class="sidebar-icon-link" title="{'Home'|translate}"><i class="icon-home"></i></a>
       <a href="{$ROOT_URL}search.php" class="sidebar-icon-link" title="{'Search'|translate}"><i class="icon-lens"></i></a>
-      
+
       {* Dropdown container for Albums *}
       <div class="sidebar-dropdown-container">
-        <a href="#" onclick="return false;" class="sidebar-icon-link" title="{'Albums'|translate}"><i class="icon-structure"></i></a>
-        
+        <a href="#" onclick="return false;" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Albums'|translate}"><i class="icon-structure"></i></a>
+
         <div class="sidebar-dropdown-menu">
           <div class="dropdown-menu-title">{'Albums'|translate}</div>
           <ul class="album-dropdown-list">
             {if isset($MACADAM_HEADER_ALBUMS) && !empty($MACADAM_HEADER_ALBUMS)}
-              {foreach from=$MACADAM_HEADER_ALBUMS item=album}
-                <li{if !empty($album.sub_albums)} class="has-sub-albums"{/if}>
-                  <div class="album-item-row">
+              {* Define a recursive function to handle infinite album depth *}
+              {function name=render_album_list depth=0}
+                {foreach from=$albums item=album}
+                  <li{if !empty($album.sub_albums)} class="has-sub-albums" {/if}>
+                    <div class="album-item-row" style="padding-left: {$depth * 30 + 20}px;">
+                      {if !empty($album.sub_albums)}
+                        <span class="album-toggle"><i class="icon-arrow-right"></i></span>
+                      {else}
+                        <span class="album-toggle-disabled"><i class="icon-arrow-right"></i></span>
+                      {/if}
+                      <a href="{$album.URL}" title="{$album.name|escape}">{$album.name}</a>
+                      <div class="album-counts">
+                        {if $album.count_categories > 0}
+                          <span class="album-count" title="{'Albums'|translate}">{$album.count_categories}<i class="icon-folder"></i></span>
+                        {/if}
+                        {if $album.count_images > 0}
+                          <span class="album-count" title="{'Images'|translate}">{$album.count_images}<i class="icon-picture"></i></span>
+                        {/if}
+                      </div>
+                    </div>
                     {if !empty($album.sub_albums)}
-                      <span class="album-toggle"><i class="icon-play"></i></span>
+                      <ul class="sub-album-list">
+                        {call name=render_album_list albums=$album.sub_albums depth=$depth+1}
+                      </ul>
                     {/if}
-                    <a href="{$album.URL}">{$album.name}</a>
-                  </div>
-                  {if !empty($album.sub_albums)}
-                    <ul class="sub-album-list">
-                      {foreach from=$album.sub_albums item=sub_album}
-                        <li>
-                          <div class="album-item-row"><a href="{$sub_album.URL}">{$sub_album.name}</a></div>
-                        </li>
-                      {/foreach}
-                    </ul>
-                  {/if}
+                    </li>
+                  {/foreach}
+                {/function}
+
+                {* Call the function with the root albums *}
+                {call name=render_album_list albums=$MACADAM_HEADER_ALBUMS depth=0}
+              {else}
+                <li>
+                  <div class="album-item-row"><a href="#">{'No albums'|translate}</a></div>
                 </li>
-              {/foreach}
-            {else}
-              <li><div class="album-item-row"><a href="#">{'No albums'|translate}</a></div></li>
-            {/if}
+              {/if}
           </ul>
+
+          {if isset($MACADAM_TOTAL_ALBUMS) && $MACADAM_TOTAL_ALBUMS > 0}
+            <div class="dropdown-menu-footer">
+              <div class="album-item-row" style="gap: 35px;">
+                <span class="" title="{'Total albums'|translate}">{$MACADAM_TOTAL_ALBUMS} <i class="icon-folder"></i></span>
+                <span class="" title="{'Total images'|translate}">{$MACADAM_TOTAL_IMAGES} <i class="icon-picture"></i></span>
+              </div>
+            </div>
+          {/if}
         </div>
       </div>
 
       <a href="{$U_MODE_CREATED|default:"`$ROOT_URL`index.php?/created-monthly"}" class="sidebar-icon-link" title="{'Discovery'|translate}"><i class="icon-add"></i></a>
-      
+
       {* Dropdown container for Tags *}
       <div class="sidebar-dropdown-container">
-        <a href="{$U_TAGS|default:"`$ROOT_URL`tags.php"}" class="sidebar-icon-link" title="{'Tags'|translate}"><i class="icon-tags"></i></a>
+        <a href="{$U_TAGS|default:"`$ROOT_URL`tags.php"}" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Tags'|translate}"><i class="icon-tags"></i></a>
         <div class="sidebar-dropdown-menu">
           <div class="dropdown-menu-title">{'Tags'|translate}</div>
           <ul class="album-dropdown-list">
             {if isset($MACADAM_HEADER_TAGS) && !empty($MACADAM_HEADER_TAGS)}
               {foreach from=$MACADAM_HEADER_TAGS item=tag}
-                <li><div class="album-item-row"><a href="{$tag.URL}">{$tag.name}</a></div></li>
+                <li>
+                  <div class="tag-item-row"><a href="{$tag.URL}">{$tag.name}</a></div>
+                </li>
               {/foreach}
             {else}
-              <li><div class="album-item-row"><a href="#">{'No tags'|translate}</a></div></li>
+              <li>
+                <div class="tag-item-row"><a href="#">{'No tags'|translate}</a></div>
+              </li>
             {/if}
           </ul>
         </div>
@@ -131,16 +158,20 @@
 
       {* Dropdown container for Favorites *}
       <div class="sidebar-dropdown-container">
-        <a href="{$U_FAVORITES|default:"`$ROOT_URL`index.php?/favorites"}" class="sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
+        <a href="{$U_FAVORITES|default:"`$ROOT_URL`index.php?/favorites"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
         <div class="sidebar-dropdown-menu">
-          <div class="dropdown-menu-title">{'Favorites'|translate}</div>
+          <div class="dropdown-menu-title">{'Collections'|translate}</div>
           <ul class="album-dropdown-list">
             {if isset($MACADAM_HEADER_FAVORITES) && !empty($MACADAM_HEADER_FAVORITES)}
               {foreach from=$MACADAM_HEADER_FAVORITES item=fav}
-                <li><div class="album-item-row"><a href="{$fav.URL}">{$fav.name}</a></div></li>
+                <li>
+                  <div class="tag-item-row"><a href="{$fav.URL}">{$fav.name}</a></div>
+                </li>
               {/foreach}
             {else}
-              <li><div class="album-item-row"><a href="#">{'No favorites'|translate}</a></div></li>
+              <li>
+                <div class="tag-item-row"><a href="#">{'No collections'|translate}</a></div>
+              </li>
             {/if}
           </ul>
         </div>
@@ -149,13 +180,44 @@
       {if isset($U_LOGIN_REGISTER)}
         <a href="{$U_LOGIN_REGISTER}" class="sidebar-icon-link" title="{'Login'|translate}"><i class="icon-person"></i></a>
       {else if isset($U_PROFILE)}
-        <a href="{$U_PROFILE}" class="sidebar-icon-link" title="{'Profile'|translate}"><i class="icon-person"></i></a>
+        <div class="sidebar-dropdown-container">
+          <a href="{$U_PROFILE}" class="sidebar-icon-link" title="{'Profile'|translate}"><i class="icon-person"></i></a>
+          <div class="sidebar-dropdown-menu">
+            <div class="dropdown-menu-title">{'Account'|translate}</div>
+            <ul class="album-dropdown-list">
+              {if isset($U_ADMIN)}
+              <li>
+                <div class="tag-item-row"><a href="{$U_ADMIN}">{'Administration'|translate}</a></div>
+              </li>
+              {/if}
+              <li>
+                <div class="tag-item-row"><a href="{$U_PROFILE}">{'Customize'|translate}</a></div>
+              </li>
+              <li>
+                <div class="tag-item-row"><a href="{$ROOT_URL}profile.php">{'Notifications'|translate}</a></div>
+              </li>
+              <li>
+                <div class="tag-item-row"><a href="{$ROOT_URL}admin.php?page=photos_add">{'Add photos'|translate}</a></div>
+              </li>
+              <li>
+                <div class="tag-item-row"><a href="{$ROOT_URL}admin.php?page=batch_manager">{'Edit photos'|translate}</a></div>
+              </li>
+            </ul>
+            {if isset($U_LOGOUT)}
+            <div class="dropdown-menu-footer" style="justify-content: start; padding-top: 20px;">
+              <div class="tag-item-row" style="padding-bottom: 10px;">
+                <a href="{$U_LOGOUT}">{'Logout'|translate}</a>
+              </div>
+            </div>
+            {/if}
+          </div>
+        </div>
       {/if}
       {* {if isset($U_ADMIN)}
     <a href="{$U_ADMIN}" class="sidebar-icon-link" title="{'Administration'|translate}">⚙️</a>
     {/if} *}
     </div>
-    
+
     {* Script to handle sub-albums toggle on click *}
     <script>
       document.addEventListener('DOMContentLoaded', function() {
@@ -169,6 +231,17 @@
             if (subList) subList.classList.toggle('open');
           });
         });
+
+        /* Align dropdown menu top with the vertical position of the button */
+        document.querySelectorAll('.sidebar-dropdown-container').forEach(function(container) {
+          var menu = container.querySelector('.sidebar-dropdown-menu');
+          if (menu) {
+            container.addEventListener('mouseenter', function() {
+              var rect = container.getBoundingClientRect();
+              menu.style.top = rect.top - 10 + 'px';
+            });
+          }
+        });
       });
     </script>
   </nav>
@@ -176,13 +249,16 @@
   <div id="the_page" class="macadam-main-container">
 
     {* {if not empty($header_msgs)}
-  <div class="header_msgs">
+    <div class="header_msgs">
+
 
       {foreach from=$header_msgs item=elt}
-      {$elt}<br>
+          {$elt}<br>
+
 
       {/foreach}
-  </div>
+    </div>
+
 
     {/if} *}
 
