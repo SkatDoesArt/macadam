@@ -40,7 +40,7 @@
                 jQuery('#derivativeChecked'+typeMap).css('visibility','visible');
                 document.cookie = 'picture_deriv='+typeSave+';path=
               {/literal}{$COOKIE_PATH}
-              {literal}   ';
+              {literal}  ';
                 }
                 (window.SwitchBox=window.SwitchBox||[]).push("#derivativeSwitchLink", "#derivativeSwitchBox");
               {/literal}{/footer_script}
@@ -118,7 +118,7 @@
               </a>
             {/if}
           {/strip}
-
+          
           {strip}
             {if isset($U_PHOTO_ADMIN)}
               <a id="cmdEditPhoto" href="{$U_PHOTO_ADMIN}" title="{'Edit photo'|@translate}" class="pwg-state-default pwg-button" rel="nofollow">
@@ -126,11 +126,11 @@
               </a>
             {/if}
           {/strip}
-
+          
           {strip}
             {if isset($U_CADDIE)}
               {footer_script}
-              {literal}   function addToCadie(aElement, rootUrl, id) {
+              {literal}  function addToCadie(aElement, rootUrl, id) {
                 if (aElement.disabled) return;
                 aElement.disabled=true;
                 var y = new PwgWS(rootUrl);
@@ -216,7 +216,7 @@
       <div id="macadam-sidebar-info-view">
         <div class="sidebar-meta-header">
           <h3 class="photo-title">{$current.TITLE}</h3>
-          <div class="imageNumber">Image {$PHOTO}</div>
+          {* <div class="imageNumber">Image {$PHOTO}</div> *}
         </div>
 
         {if isset($COMMENT_IMG)}
@@ -227,7 +227,7 @@
           <div class="sidebar-section-tags">
             <div class="tag-badges-container">
               {foreach from=$related_tags item=tag}
-                <a href="{$tag.URL}" class="macadam-tag-badge">{$tag.name}</a>
+                <i class="icon-tags"></i> <a href="{$tag.URL}" class="macadam-tag-badge">{$tag.name}</a>
               {/foreach}
             </div>
           </div>

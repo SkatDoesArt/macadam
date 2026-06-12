@@ -440,12 +440,20 @@
 
 .photo-title {
   margin: 0;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 600;
   color: #1e2044;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  text-align: center;
+  padding: 30px 0px;
+}
+
+.imageComment{
+  text-align: left;
+  font-size: 12px;
+  padding: 10px 0;
 }
 
 .photo-meta {
@@ -585,7 +593,6 @@
 
 /* calendar */
 
-/* --- CONTENEUR GLOBAL --- */
 .macadam-calendar-wrapper {
   font-family: system-ui, -apple-system, sans-serif;
   color: #1e293b;
@@ -594,7 +601,7 @@
   border-radius: 12px;
 }
 
-/* --- BARRE DE NAVIGATION --- */
+
 .macadam-calendar-navigation {
   display: flex;
   justify-content: space-between;
@@ -661,7 +668,6 @@
   box-shadow: 0 1px 3px rgba(0,0,0,0.1);
 }
 
-/* --- TABLEAU DU CALENDRIER --- */
 .macadam-calendar-table {
   width: 100%;
   border-collapse: collapse;
@@ -683,7 +689,7 @@
 
 .cal-day-cell {
   width: 14.28%;
-  height: 120px; /* Hauteur fixe pour faire de jolies cases carrées/rectangulaires */
+  height: 120px;
   vertical-align: top;
   border: 1px solid #e2e8f0;
   padding: 8px;
@@ -712,7 +718,7 @@
   font-weight: 600;
 }
 
-/* Badge Bleu des Photos */
+
 .photos-badge {
   background-color: #3b5284;
   color: #ffffff;
@@ -723,7 +729,6 @@
   font-weight: 500;
 }
 
-/* --- BLOCS DE COULEUR EMPILÉS (Mockup) --- */
 .cell-content {
   height: calc(100% - 24px);
   display: flex;
@@ -817,9 +822,10 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 20px;
+  padding: 10px 0;
 }
 .macadam-tag-badge {
-  background-color: #5e6080; 
+  background-color: #434980; 
   color: #ffffff;
   padding: 6px 14px;
   border-radius: 6px;
@@ -843,4 +849,16 @@
 .info-list-section .info-icon {
   font-size: 1.1rem;
   opacity: 0.7;
+}
+
+ul.macadam-info-list{
+  text-decoration: none !important;
+  list-style: none !important;
+  padding-left: 0 !important;
+}
+
+ul.macadam-info-list li{
+  padding-bottom: 22px;
+  font-size: 14px;
+  font-weight: 600;
 }
