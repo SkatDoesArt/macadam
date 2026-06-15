@@ -156,25 +156,45 @@
         </div>
       </div>
 
-      {* Dropdown container for Favorites *}
+      {* Dropdown container for Collections / Favorites *}
       <div class="sidebar-dropdown-container">
-        <a href="{$U_FAVORITES|default:"`$ROOT_URL`index.php?/favorites"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
-        <div class="sidebar-dropdown-menu">
-          <div class="dropdown-menu-title">{'Collections'|translate}</div>
-          <ul class="album-dropdown-list">
-            {if isset($MACADAM_HEADER_FAVORITES) && !empty($MACADAM_HEADER_FAVORITES)}
-              {foreach from=$MACADAM_HEADER_FAVORITES item=fav}
+        {if isset($user_collections)}
+          <a href="{$U_USER_COLLECTIONS|default:"#"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Collections'|translate}"><i class="icon-star"></i></a>
+          <div class="sidebar-dropdown-menu">
+            <div class="dropdown-menu-title">{'Collections'|translate}</div>
+            <ul class="album-dropdown-list">
+              {if !empty($user_collections)}
+                {foreach from=$user_collections item=collection}
+                  <li>
+                    <div class="tag-item-row"><a href="{$collection.url}">{$collection.name}</a></div>
+                  </li>
+                {/foreach}
+              {else}
                 <li>
-                  <div class="tag-item-row"><a href="{$fav.URL}">{$fav.name}</a></div>
+                  <div class="tag-item-row"><a href="#">{'No collections'|translate}</a></div>
                 </li>
-              {/foreach}
-            {else}
-              <li>
-                <div class="tag-item-row"><a href="#">{'No collections'|translate}</a></div>
-              </li>
-            {/if}
-          </ul>
-        </div>
+              {/if}
+            </ul>
+          </div>
+        {else}
+          <a href="{$U_FAVORITES|default:"`$ROOT_URL`index.php?/favorites"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
+          <div class="sidebar-dropdown-menu">
+            <div class="dropdown-menu-title">{'Favorites'|translate}</div>
+            <ul class="album-dropdown-list">
+              {if isset($MACADAM_HEADER_FAVORITES) && !empty($MACADAM_HEADER_FAVORITES)}
+                {foreach from=$MACADAM_HEADER_FAVORITES item=fav}
+                  <li>
+                    <div class="tag-item-row"><a href="{$fav.URL}">{$fav.name}</a></div>
+                  </li>
+                {/foreach}
+              {else}
+                <li>
+                  <div class="tag-item-row"><a href="#">{'No favorites'|translate}</a></div>
+                </li>
+              {/if}
+            </ul>
+          </div>
+        {/if}
       </div>
 
       {if isset($U_LOGIN_REGISTER)}
@@ -220,18 +240,7 @@
 
     {* Script to handle sub-albums toggle on click *}
     <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        var toggles = document.querySelectorAll('.album-toggle');
-        toggles.forEach(function(toggle) {
-          toggle.addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            this.classList.toggle('open');
-            var subList = this.closest('li').querySelector('.sub-album-list');
-            if (subList) subList.classList.toggle('open');
-          });
-        });
-
+      document.addEventListener('DOMContentLoaded', function() { 
         /* Align dropdown menu top with the vertical position of the button */
         document.querySelectorAll('.sidebar-dropdown-container').forEach(function(container) {
           var menu = container.querySelector('.sidebar-dropdown-menu');
@@ -244,6 +253,16 @@
         });
       });
     </script>
+    {footer_script}
+      jQuery(document).ready(function($) {
+        $('.sidebar-dropdown-menu').on('click', '.album-toggle', function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          $(this).toggleClass('open');
+          $(this).closest('li').children('.sub-album-list').slideToggle(250);
+        });
+      });
+    {/footer_script}
   </nav>
 
   <div id="the_page" class="macadam-main-container">
