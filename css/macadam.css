@@ -1,11 +1,28 @@
 :root {
-  --menu-icon: #090D31;
-  --menu-icon-hover: #5C6AE2;
+  --menu-icon: #090d31;
+  --menu-icon-hover: #5c6ae2;
   --clear: #ffffff;
+}
+
+body {
+  background-color: #F5F5F5;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 a:hover {
   border: none;
+}
+
+.usable-icon {
+  font-size: 22px;
+  color: var(--menu-icon) !important;
+  transition: color 0.3s ease;
+}
+
+.usable-icon:hover {
+  color: var(--menu-icon-hover) !important;
 }
 
 #menubar {
@@ -29,6 +46,7 @@ BODY {
   margin-left: 60px;
   width: calc(100% - 60px);
   box-sizing: border-box;
+  flex: 1;
 }
 
 .macadam-main-grid {
@@ -43,26 +61,35 @@ BODY {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
+  margin: 0 auto 35px;
   background-color: transparent;
+  max-width: 1100px;
 }
 
 .macadam-breadcrumb-zone {
   display: flex;
   align-items: center;
-  gap: 12px;
 }
 
-.macadam-home-badge {
-  font-size: 20px;
+.macadam-breadcrumb-zone i {
+  font-size: 22px;
+  color: #777777;
+}
+
+.macadam-index-bar i {
+  padding-top: 2px;
 }
 
 #breadcrumb h2 {
-  font-size: 22px;
-  font-weight: 600;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  font-style: normal;
+  line-height: 100%;
+  letter-spacing: 0;
   margin: 0;
   text-decoration: none !important;
 }
-
 
 #breadcrumb a {
   color: black !important;
@@ -83,58 +110,30 @@ BODY {
 
 .macadam-main-grid.view-list .album-card {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   width: 100%;
-}
-
-.macadam-actions-zone .categoryActions {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  list-style: none !important;
-  margin: 0;
-  padding: 0;
-}
-
-.macadam-actions-zone .categoryActions li {
-  list-style: none !important;
-  position: relative;
-}
-
-.macadam-actions-zone .categoryActions li a, 
-.macadam-action-emoji {
-  font-size: 20px;
-  text-decoration: none !important;
-  cursor: pointer;
-  transition: transform 0.2s ease;
-  display: inline-block;
-}
-
-.macadam-actions-zone .categoryActions li a:hover,
-.macadam-action-emoji:hover {
-  transform: scale(1.15);
-  text-decoration: none !important;
 }
 
 .macadam-actions-zone ul {
   display: flex;
   align-items: center;
-  gap: 15px; 
+  gap: 15px;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .macadam-actions-zone ul li a {
-  font-size: 20px; 
+  font-size: 22px;
   text-decoration: none !important;
   cursor: pointer;
   display: inline-block;
-  transition: transform 0.2s ease;
+  transition: color 0.2s ease;
+  color: var(--menu-icon) !important;
 }
 
 .macadam-actions-zone ul li a:hover {
-  transform: scale(1.15); 
+  color: var(--menu-icon-hover) !important;
 }
 
 /* Par défaut, la section Liste est complètement cachée */
@@ -161,12 +160,9 @@ BODY {
 
 /* Albums card */
 
-
-
 .macadam-albums-container {
   display: flex;
   flex-direction: column;
-  gap: 24px;
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
@@ -175,22 +171,16 @@ BODY {
 .macadam-album-card {
   display: flex;
   background: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
+  border: 1px solid #C1C1C1;
+  border-radius: 5px;
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  height: 180px;
-}
-
-.macadam-album-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  height: 200px;
+  cursor: pointer;
 }
 
 .macadam-album-thumbs {
   display: flex;
-  width: 240px; 
+  width: 240px;
   height: 100%;
   text-decoration: none !important;
   flex-shrink: 0;
@@ -231,10 +221,6 @@ BODY {
   background-color: #e9c46a;
 }
 
-.macadam-album-card:hover .thumb-sub-block {
-  opacity: 0.9;
-}
-
 .macadam-album-infos {
   display: flex;
   flex-direction: column;
@@ -262,22 +248,17 @@ BODY {
   text-decoration: none !important;
 }
 
-.album-title a:hover {
-  color: #e66741 !important;
-}
-
 .album-meta {
   font-size: 13px;
   color: #888888;
 }
 
 .album-actions-trigger {
-  font-size: 20px;
-  color: #1e2044;
   cursor: pointer;
-  padding: 0 5px;
   line-height: 1;
+  margin-right: -2px;
 }
+
 .album-description {
   font-size: 13px;
   line-height: 1.6;
@@ -297,12 +278,25 @@ BODY {
 .album-footer-icon {
   position: absolute;
   right: 24px;
-  bottom: 16px;
-  font-size: 16px;
-  color: #1e2044;
+  bottom: 34px;
   opacity: 0.8;
 }
 
+.album-footer-icon .album-sub-toggle i,
+.album-actions-trigger i {
+  font-size: 16px;
+  transition: color 0.3s ease;
+  color: var(--menu-icon);
+}
+
+.album-footer-icon .album-sub-toggle i:hover,
+.album-actions-trigger i:hover {
+  color: var(--menu-icon-hover);
+}
+
+.sub-albums-container {
+  display: none;
+}
 /* list mode */
 
 .macadam-albums-container.macadam-main-grid-active {
@@ -310,19 +304,17 @@ BODY {
   flex-direction: column;
   max-width: 1100px;
   margin: 0 auto;
-  gap: 24px;
   width: 100%;
 }
 
 .macadam-albums-container.macadam-main-grid-active .macadam-album-card {
   display: flex;
   flex-direction: row;
-  height: 180px;
+  height: 200px;
   background: #ffffff;
-  border: 1px solid #e5e5e5;
-  border-radius: 12px;
   overflow: hidden;
   width: 100%;
+  margin-bottom: 24px;
 }
 
 .macadam-albums-container.macadam-main-grid-active .macadam-album-thumbs {
@@ -335,7 +327,7 @@ BODY {
 .macadam-albums-container.macadam-main-grid-active .macadam-album-infos {
   display: flex;
   flex-direction: column;
-  padding: 20px 24px;
+  padding: 34px 24px 34px 34px;
   flex-grow: 1;
 }
 
@@ -352,21 +344,25 @@ BODY {
   max-width: 100%;
 }
 
-.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-card {
+.macadam-albums-container.macadam-main-grid-active.view-grid
+  .macadam-album-card {
   flex-direction: column !important;
   height: auto !important;
 }
 
-.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-thumbs {
+.macadam-albums-container.macadam-main-grid-active.view-grid
+  .macadam-album-thumbs {
   width: 100% !important;
   height: 200px !important;
 }
 
-.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-infos {
+.macadam-albums-container.macadam-main-grid-active.view-grid
+  .macadam-album-infos {
   padding: 16px !important;
 }
 
-.macadam-albums-container.macadam-main-grid-active.view-grid .album-description-zone {
+.macadam-albums-container.macadam-main-grid-active.view-grid
+  .album-description-zone {
   display: none !important;
 }
 
@@ -379,7 +375,7 @@ BODY {
   left: auto !important;
   background: #ffffff;
   border: 1px solid #e5e5e5;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   padding: 12px;
   border-radius: 6px;
   z-index: 1050;
@@ -404,7 +400,9 @@ BODY {
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
 }
 
 .macadam-photo-card:hover {
@@ -457,7 +455,7 @@ BODY {
   padding: 30px 0px;
 }
 
-.imageComment{
+.imageComment {
   text-align: left;
   font-size: 12px;
   padding: 10px 0;
@@ -534,7 +532,9 @@ BODY {
   text-decoration: none !important;
   font-size: 28px;
   font-weight: bold;
-  transition: transform 0.2s, background-color 0.2s;
+  transition:
+    transform 0.2s,
+    background-color 0.2s;
   cursor: pointer;
   user-select: none;
 }
@@ -568,7 +568,9 @@ BODY {
   border-radius: 6px;
   overflow: hidden;
   border: 2px solid transparent;
-  transition: transform 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s,
+    border-color 0.2s;
   opacity: 0.6;
 }
 
@@ -587,7 +589,7 @@ BODY {
   border-color: #e66741;
   opacity: 1;
   transform: scale(1.1);
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .strip-thumb-placeholder {
@@ -598,17 +600,18 @@ BODY {
   opacity: 0.3;
 }
 
-
 /* calendar */
 
 .macadam-calendar-wrapper {
-  font-family: system-ui, -apple-system, sans-serif;
+  font-family:
+    system-ui,
+    -apple-system,
+    sans-serif;
   color: #1e293b;
   background: #f8fafc;
   padding: 24px;
   border-radius: 12px;
 }
-
 
 .macadam-calendar-navigation {
   display: flex;
@@ -673,7 +676,7 @@ BODY {
 .cal-btn-mode.active {
   background: #ffffff;
   color: #1e293b;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .macadam-calendar-table {
@@ -726,7 +729,6 @@ BODY {
   font-weight: 600;
 }
 
-
 .photos-badge {
   background-color: #3b5284;
   color: #ffffff;
@@ -761,10 +763,14 @@ BODY {
   border-radius: 6px;
 }
 
-.block-orange { background-color: #e26d43; }
-.block-beige  { background-color: #fcd3a1; }
-.block-dark   { 
-  background-color: #1e293b; 
+.block-orange {
+  background-color: #e26d43;
+}
+.block-beige {
+  background-color: #fcd3a1;
+}
+.block-dark {
+  background-color: #1e293b;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -782,10 +788,9 @@ BODY {
 .macadam-picture-container {
   display: flex;
   width: 100%;
-  min-height: calc(100vh - 80px); 
+  min-height: calc(100vh - 80px);
   background-color: #f7f9fa;
 }
-
 
 .macadam-picture-viewer {
   flex: 1;
@@ -816,7 +821,7 @@ BODY {
   transition: background 0.2s;
 }
 .sidebar-tabs .tab-btn.active {
-  border-bottom: 3px solid #3b4252; 
+  border-bottom: 3px solid #3b4252;
   font-weight: bold;
 }
 
@@ -833,7 +838,7 @@ BODY {
   padding: 10px 0;
 }
 .macadam-tag-badge {
-  background-color: #434980; 
+  background-color: #434980;
   color: #ffffff;
   padding: 6px 14px;
   border-radius: 6px;
@@ -859,17 +864,34 @@ BODY {
   opacity: 0.7;
 }
 
-ul.macadam-info-list{
+ul.macadam-info-list {
   text-decoration: none !important;
   list-style: none !important;
   padding-left: 0 !important;
 }
 
-ul.macadam-info-list li{
+ul.macadam-info-list li {
   padding-bottom: 22px;
   font-size: 14px;
   font-weight: 600;
 }
+
+.macadam-footer {
+  text-align: center;
+  padding: 5px 20px;
+}
+
+.macadam-footer p {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 18px;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #646464;
+  margin: 0;
+}
+
 
 /* picture menu dorpdown */
 

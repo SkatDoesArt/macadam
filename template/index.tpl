@@ -11,12 +11,13 @@
 <div id="content" class="content">
   <div class="macadam-index-bar">
     <div class="macadam-breadcrumb-zone">
-      <a href="{$U_HOME}" class="macadam-home-icon gallery-icon-home">🏠</a>
+      <a href="{$U_HOME}"><i class="icon-home{if $TITLE|strstr:' / '} usable-icon{/if}"></i></a>
       <div id="breadcrumb">
-        <h2>
-          {$TITLE}
-          {if $NB_ITEMS > 0}<span class="badge nb_items">{$NB_ITEMS}</span>{/if}
-        </h2>
+        {if $TITLE|strstr:' / '}
+          <h2>
+            {$TITLE|regex_replace:"#^.*?(?= / )#":""}
+          </h2>
+        {/if}
         {$SELECTED_TAGS_TEMPLATE}
       </div>
     </div>
@@ -24,13 +25,13 @@
     <div class="macadam-actions-zone">
       <ul>
         {if isset($U_MODE_POSTED)}
-          <li><a href="{$U_MODE_POSTED}" title="{'Calendar'|translate}">📅</a></li>
+          <li><a href="{$U_MODE_POSTED}" title="{'Calendar'|translate}"><i class="icon-calendar"></i></a></li>
         {elseif isset($U_MODE_CREATED)}
-          <li><a href="{$U_MODE_CREATED}" title="{'Calendar'|translate}">📅</a></li>
+          <li><a href="{$U_MODE_CREATED}" title="{'Calendar'|translate}"><i class="icon-calendar"></i></a></li>
         {/if}
 
         <li>
-          <a id="toggleLayoutLink" title="Changer la disposition" style="cursor: pointer;">📝</a>
+          <a id="toggleLayoutLink" title="{'Change layout'|translate}" style="cursor: pointer;"><i class="icon-grid"></i></a>
         </li>
 
         {if !empty($image_orders)}
@@ -43,19 +44,23 @@
 
                 {if $image_order.SELECTED}
                   <span>&#x2714; </span>{$image_order.DISPLAY}
-                  {else}
-                  <span style="visibility:hidden">&#x2714; </span><a href="{$image_order.URL}" rel="nofollow">{$image_order.DISPLAY}</a>
+                {else}
+                  <span style="visibility:hidden">&#x2714; </span><a href="{$image_order.URL}"
+                    rel="nofollow">{$image_order.DISPLAY}</a>
                 {/if}
               {/foreach}
             </div>
-            {footer_script}(window.SwitchBox=window.SwitchBox||[]).push("#sortOrderLink", "#sortOrderBox");{/footer_script}
+            {footer_script}(window.SwitchBox=window.SwitchBox||[]).push("#sortOrderLink",
+            "#sortOrderBox");{/footer_script}
           </li>
         {/if}
 
         {if isset($U_EDIT)}
-          <li><a href="{$U_EDIT}" class="gallery-icon-cog" title="{'Edit album'|translate}">⚙️</a></li>
+          <li><a href="{$U_EDIT}" class="gallery-icon-cog" title="{'Edit album'|translate}"><i class="icon-wheel"></i></a>
+          </li>
         {elseif isset($U_ADMIN)}
-          <li><a href="{$U_ADMIN}" class="gallery-icon-cog" title="{'Administration'|translate}">⚙️</a></li>
+          <li><a href="{$U_ADMIN}" class="gallery-icon-cog" title="{'Administration'|translate}"><i
+                class="icon-wheel"></i></a></li>
         {/if}
 
         {if !empty($PLUGIN_INDEX_BUTTONS)}
@@ -74,103 +79,110 @@
       <em><strong>
           {foreach $no_search_results as $res}
             {if !$res@first} &mdash; {/if}{$res}
-            {/foreach}
-            </strong></em>
-            </p>
-    {/if}
+          {/foreach}
+        </strong></em>
+    </p>
+  {/if}
 
-    {if !empty($category_search_results)}
+  {if !empty($category_search_results)}
     <p class="search_results">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
       <em><strong>
           {foreach from=$category_search_results item=res name=res_loop}
             {if !$smarty.foreach.res_loop.first} &mdash; {/if}{$res}
-            {/foreach}
-            </strong></em>
-            </p>
-      {/if}
+          {/foreach}
+        </strong></em>
+    </p>
+  {/if}
 
-      {if !empty($tag_search_results)}
+  {if !empty($tag_search_results)}
     <p class="search_results">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
-        <em><strong>
+      <em><strong>
           {foreach from=$tag_search_results item=tag name=res_loop}
             {if !$smarty.foreach.res_loop.first} &mdash; {/if} <a href="{$tag.URL}">{$tag.name}</a>
           {/foreach}
         </strong></em>
-        </p>
-      {/if}
+    </p>
+  {/if}
 
-      {if isset($FILE_CHRONOLOGY_VIEW)}
-        {include file=$FILE_CHRONOLOGY_VIEW}
-      {/if}
+  {if isset($FILE_CHRONOLOGY_VIEW)}
+    {include file=$FILE_CHRONOLOGY_VIEW}
+  {/if}
 
-      {if !empty($CONTENT_DESCRIPTION)}
-        <div class="additional_info">
-        {$CONTENT_DESCRIPTION}
-        </div>
-      {/if}
+  {if !empty($CONTENT_DESCRIPTION)}
+    <div class="additional_info">
+      {$CONTENT_DESCRIPTION}
+    </div>
+  {/if}
 
-      {if !empty($CONTENT)}{$CONTENT}{/if}
-      {if !empty($CATEGORIES)}{$CATEGORIES}{/if}
+  {if !empty($CONTENT)}{$CONTENT}{/if}
+  {if !empty($CATEGORIES)}{$CATEGORIES}{/if}
 
-      {if !empty($cats_navbar)}
-        {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
-      {/if}
+  {if !empty($cats_navbar)}
+    {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
+  {/if}
 
-      {if !empty($THUMBNAILS)}
-        <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
-        <ul class="thumbnails" id="thumbnails">
-        {$THUMBNAILS}
-        </ul>
-      {else if !empty($SEARCH_ID)}
-        <div class="mcs-no-result">
-        <div class="text">
+  {if !empty($THUMBNAILS)}
+    <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
+    <ul class="thumbnails" id="thumbnails">
+      {$THUMBNAILS}
+    </ul>
+  {else if !empty($SEARCH_ID)}
+    <div class="mcs-no-result">
+      <div class="text">
         <span class="top">{'No results are available.'|@translate}</span>
         <span class="bot">{'You can try to edit your filters and perform a new search.'|translate}</span>
-        </div>
-        </div>
-      {/if}
-
-      {if !empty($thumb_navbar)}
-        {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}
-      {/if}
-      {if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_END}{/if}
       </div>
+    </div>
+  {/if}
 
-      {footer_script}
-      document.addEventListener('DOMContentLoaded', function() {
-      const container = document.querySelector('.macadam-albums-container');
-      const photosContainer = document.getElementById('thumbnails');
-      const toggleBtn = document.getElementById('toggleLayoutLink');
+  {if !empty($thumb_navbar)}
+    {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}
+  {/if}
+  {if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_END}{/if}
+</div>
 
-      const currentLayout = localStorage.getItem('macadam-preferred-layout');
+{footer_script}
+document.addEventListener('DOMContentLoaded', function() {
+const container = document.querySelector('.macadam-albums-container');
+const photosContainer = document.getElementById('thumbnails');
+const toggleBtn = document.getElementById('toggleLayoutLink');
 
-      if (currentLayout === 'grid') {
-      if (container) container.classList.add('view-grid');
-      if (photosContainer) photosContainer.classList.add('view-grid-thumbnails');
-      }
+const currentLayout = localStorage.getItem('macadam-preferred-layout');
 
-      if (toggleBtn) {
-      toggleBtn.addEventListener('click', function(e) {
-      e.preventDefault();
+if (currentLayout === 'grid') {
+if (container) container.classList.add('view-grid');
+if (photosContainer) photosContainer.classList.add('view-grid-thumbnails');
+}
 
-      let isGrid = false;
+if (toggleBtn) {
+toggleBtn.addEventListener('click', function(e) {
+e.preventDefault();
 
-      if (container) {
-      container.classList.toggle('view-grid');
-      isGrid = container.classList.contains('view-grid');
-      }
-      if (photosContainer) {
-      photosContainer.classList.toggle('view-grid-thumbnails');
-      }
+let isGrid = false;
 
-      if (isGrid) {
-      localStorage.setItem('macadam-preferred-layout', 'grid');
-      } else {
-      localStorage.setItem('macadam-preferred-layout', 'list');
-      }
-      });
-      }
-      });
-      {/footer_script}
+if (container) {
+container.classList.toggle('view-grid');
+isGrid = container.classList.contains('view-grid');
+}
+if (photosContainer) {
+photosContainer.classList.toggle('view-grid-thumbnails');
+}
 
-      {if !empty($PLUGIN_INDEX_CONTENT_AFTER)}{$PLUGIN_INDEX_CONTENT_AFTER}{/if}
+if (isGrid) {
+localStorage.setItem('macadam-preferred-layout', 'grid');
+} else {
+localStorage.setItem('macadam-preferred-layout', 'list');
+}
+});
+}
+});
+document.querySelectorAll('.macadam-album-card').forEach(card => {
+card.addEventListener('click', e => {
+if (e.target.closest('a, button, .album-actions-trigger')) return;
+const url = card.querySelector('.macadam-album-thumbs').href;
+window.location.href = url;
+});
+});
+{/footer_script}
+
+{if !empty($PLUGIN_INDEX_CONTENT_AFTER)}{$PLUGIN_INDEX_CONTENT_AFTER}{/if}

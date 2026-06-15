@@ -14,25 +14,50 @@ $themeconf = array(
   'name' => 'macadam',
 );
 
-add_event_handler('loc_end_page_header', 'macadam_get_header_albums');
+load_language('theme.lang', PHPWG_THEMES_PATH . 'macadam/');
+add_event_handler('loc_begin_index', 'macadam_get_header_albums');
 add_event_handler('loc_end_picture', 'macadam_get_picture_thumbnails');
+add_event_handler('loc_begin_page_header', 'macadam_get_header_albums');
 
 function macadam_get_header_albums()
 {
   global $template, $user;
 
+  if (isset($GLOBALS['macadam_albums_loaded']))
+    return;
+  $GLOBALS['macadam_albums_loaded'] = true;
+
   // Fetch all categories the user has access to, ordered by their rank
   $query = '
-SELECT id, name, permalink, id_uppercat, count_images, count_categories
-  FROM ' . CATEGORIES_TABLE . '
-    INNER JOIN ' . USER_CACHE_CATEGORIES_TABLE . ' ON id = cat_id AND user_id = ' . $user['id'] . '
-  ORDER BY global_rank
+SELECT c.id, c.name, c.permalink, c.id_uppercat, c.comment, uc.count_images, uc.count_categories,
+       i.id AS img_id, i.path, i.representative_ext
+  FROM ' . CATEGORIES_TABLE . ' c
+    INNER JOIN ' . USER_CACHE_CATEGORIES_TABLE . ' uc ON c.id = uc.cat_id AND uc.user_id = ' . $user['id'] . '
+    LEFT JOIN ' . IMAGES_TABLE . ' i ON i.id = c.representative_picture_id
+  ORDER BY c.global_rank
 ;';
   $result = pwg_query($query);
 
   $albums_by_id = array();
   while ($row = pwg_db_fetch_assoc($result)) {
     $row['URL'] = make_index_url(array('category' => $row));
+
+    $row['NAME'] = $row['name'];
+    $row['DESCRIPTION'] = $row['comment'];
+    $row['nb_images'] = $row['count_images'];
+    $row['id_UP'] = $row['id_uppercat'];
+    $row['TN_ALT'] = htmlspecialchars($row['name']);
+
+    if (!empty($row['path']) && class_exists('SrcImage')) {
+      $row['representative'] = array(
+        'src_image' => new SrcImage(array(
+          'id' => $row['img_id'],
+          'path' => $row['path'],
+          'representative_ext' => $row['representative_ext']
+        ))
+      );
+    }
+
     $row['sub_albums'] = array();
     $albums_by_id[$row['id']] = $row;
   }
@@ -57,6 +82,7 @@ SELECT id, name, permalink, id_uppercat, count_images, count_categories
   unset($cat);
 
   $template->assign('MACADAM_HEADER_ALBUMS', $header_albums);
+  $template->assign('MACADAM_ALL_ALBUMS', $albums_by_id);
   $template->assign('MACADAM_TOTAL_ALBUMS', $total_albums);
   $template->assign('MACADAM_TOTAL_IMAGES', $total_images);
 

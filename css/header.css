@@ -328,10 +328,6 @@ a.sidebar-icon-link:hover i::before,
   display: none;
 }
 
-.sub-album-list.open {
-  display: block;
-}
-
 .sub-album-list .album-item-row {
   padding-top: 6px;
   padding-bottom: 6px;
