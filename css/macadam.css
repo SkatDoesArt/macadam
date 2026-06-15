@@ -43,9 +43,7 @@ BODY {
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  margin-bottom: 25px;
   background-color: transparent;
-  border-bottom: 1px solid #e5e5e5;
 }
 
 .macadam-breadcrumb-zone {
@@ -501,11 +499,8 @@ BODY {
   justify-content: space-between;
   width: 100%;
   position: relative;
-  background: #fdfdfd;
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
-  padding: 30px;
   box-sizing: border-box;
+  gap: 20px;
 }
 
 .macadam-photo-display {
@@ -513,6 +508,10 @@ BODY {
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #fdfdfd;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  padding: 0 30px;
   max-height: 60vh;
 }
 
@@ -870,4 +869,129 @@ ul.macadam-info-list li{
   padding-bottom: 22px;
   font-size: 14px;
   font-weight: 600;
+}
+
+/* picture menu dorpdown */
+
+.macadam-actions-zone {
+  position: relative;
+  display: inline-block;
+}
+
+.macadam-dropdown-actions {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-trigger-btn {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 8px;
+  color: #4c566a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.macadam-dropdown-actions:hover .dropdown-trigger-btn {
+  transform: rotate(45deg);
+  color: #5e6080;
+}
+
+.dropdown-menu-list {
+  display: none !important; 
+  position: absolute;
+  top: 100%;
+  right: 0;
+  gap : 5px !important;
+  min-width: 285px;
+  background-color: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
+  list-style: none !important;
+  padding: 8px 0 !important;
+  margin: 4px 0 0 0 !important;
+  z-index: 9999 !important;
+  flex-direction: column;
+}
+
+.macadam-dropdown-actions:hover .dropdown-menu-list {
+  display: flex !important;
+}
+
+.dropdown-menu-list .dropdown-item {
+  display: block !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  float: none !important; 
+}
+
+.dropdown-menu-list .dropdown-item a,
+.dropdown-menu-list .dropdown-item .pwg-button {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 5px 6px !important;
+  color: #2e3440 !important;
+  text-decoration: none !important;
+  font-size: 0.95rem !important;
+  font-weight: 400 !important;
+  background: none !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  text-align: left !important;
+  cursor: pointer !important;
+  /* transition: background-color 0.15s ease, color 0.15s ease !important; */
+}
+
+/* Effet Hover sur les lignes du menu */
+/* .dropdown-menu-list .dropdown-item a:hover,
+.dropdown-menu-list .dropdown-item .pwg-button:hover {
+  background-color: #f8fafc !important;
+  color: #5e6080 !important;
+} */
+
+.dropdown-menu-list .dropdown-item i,
+.dropdown-menu-list .dropdown-item .pwg-icon {
+  font-size: 1.2rem !important;
+  text-align: center !important;
+  color: #4c566a !important;
+  display: inline-block !important;
+  position: static !important;
+  margin: 0 !important;
+}
+
+.dropdown-menu-list .dropdown-item .pwg-button-text {
+  display: inline !important;
+  color: inherit !important;
+  padding: 0 !important;
+}
+
+.dropdown-divider {
+  height: 1px;
+  background-color: #e2e8f0;
+  margin: 6px 0;
+  list-style: none;
+}
+
+.dropdown-item .switchBox {
+  display: none;
+  position: absolute !important;
+  right: 102% !important; 
+  top: 0 !important;
+  width: 200px !important;
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
+  border-radius: 6px !important;
+  padding: 8px !important;
+  z-index: 10000 !important;
 }
