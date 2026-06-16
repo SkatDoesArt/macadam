@@ -288,7 +288,7 @@
 
         <div class="macadam-header-search">
           <form action="{$ROOT_URL}search.php" method="get">
-            <span class="search-icon">🔍</span>
+            <i class="search-icon icon-lens"></i>
             <input type="text" name="q" placeholder="Search" autocomplete="off">
           </form>
         </div>

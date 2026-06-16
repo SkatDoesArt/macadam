@@ -30,15 +30,17 @@
 
 .macadam-gallery-title, 
 .macadam-header-banner a {
-  font-family: sans-serif;
-  font-size: 36px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 48px;
   font-weight: 700;
   color: #ffffff !important;
+  line-height: 100%;
+  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 0;
   margin: 0;
   text-decoration: none !important;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  text-shadow: 0px 4px 4px #00000040;
 }
 
 .macadam-header-search {
@@ -56,7 +58,8 @@
 
 .macadam-header-search .search-icon {
   position: absolute;
-  left: 15px;
+  left: 10px;
+  top: 30%;
   font-size: 16px;
   color: #777777;
   pointer-events: none;
@@ -67,16 +70,15 @@
   padding: 12px 15px 12px 45px;
   font-size: 15px;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: #ffffff;
   color: #333333;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  outline: none;
+  outline: 1px solid #C1C1C1;
   transition: box-shadow 0.2s ease;
 }
 
 .macadam-header-search input[type="text"]::placeholder {
-  color: #aaaaaa;
+  color: #777777;
 }
 
 .macadam-header-search input[type="text"]:focus {

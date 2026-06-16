@@ -18,14 +18,89 @@ load_language('theme.lang', PHPWG_THEMES_PATH . 'macadam/');
 add_event_handler('loc_begin_index', 'macadam_get_header_albums');
 add_event_handler('loc_end_picture', 'macadam_get_picture_thumbnails');
 add_event_handler('loc_begin_page_header', 'macadam_get_header_albums');
+add_event_handler('loc_begin_index', 'macadam_register_smarty_functions');
+add_event_handler('loc_begin_page_header', 'macadam_register_smarty_functions');
+add_event_handler('loc_end_index_thumbnails', 'macadam_get_thumbnail_details');
 
-function macadam_get_header_albums()
-{
-  global $template, $user;
+function macadam_register_smarty_functions() {
+  global $template;
+  
+  static $registered = false;
+  if ($registered) return;
+  
+  $smarty = method_exists($template, 'get_smarty') ? $template->get_smarty() : $template->smarty;
+  if (!$smarty) return;
+
+  if (method_exists($smarty, 'registerPlugin')) {
+    $smarty->registerPlugin('function', 'macadam_get_extra_images', 'macadam_smarty_get_extra_images');
+    $smarty->registerPlugin('function', 'macadam_has_photos', 'macadam_smarty_has_photos');
+  } else {
+    $smarty->register_function('macadam_get_extra_images', 'macadam_smarty_get_extra_images');
+    $smarty->register_function('macadam_has_photos', 'macadam_smarty_has_photos');
+  }
+  
+  $registered = true;
+}
+
+function macadam_smarty_has_photos($params, $smarty) {
+  global $page;
+  $has_photos = !empty($page['items']);
+  if (isset($params['assign'])) {
+    $smarty->assign($params['assign'], $has_photos);
+  }
+}
+
+function macadam_smarty_get_extra_images($params, $smarty) {
+  global $user;
+
+  $cat_id = isset($params['cat_id']) ? intval($params['cat_id']) : 0;
+  $main_img_id = isset($params['main_img_id']) ? intval($params['main_img_id']) : 0;
+  
+  $extra_images = array();
+  
+  if ($cat_id > 0) {
+    $query = '
+SELECT DISTINCT i.id, i.path, i.representative_ext, i.date_available
+  FROM '.IMAGE_CATEGORY_TABLE.' ic
+    INNER JOIN '.IMAGES_TABLE.' i ON i.id = ic.image_id
+    INNER JOIN '.CATEGORIES_TABLE.' c ON c.id = ic.category_id
+    INNER JOIN '.USER_CACHE_CATEGORIES_TABLE.' uc ON c.id = uc.cat_id AND uc.user_id = '.$user['id'].'
+  WHERE (c.id = '.$cat_id.' 
+         OR c.uppercats LIKE "'.$cat_id.',%" 
+         OR c.uppercats LIKE "%,'.$cat_id.',%" 
+         OR c.uppercats LIKE "%,'.$cat_id.'")
+    AND i.id != '.$main_img_id.'
+  ORDER BY i.date_available DESC
+  LIMIT 2
+;';
+    $result = pwg_query($query);
+    while ($row = pwg_db_fetch_assoc($result)) {
+      if (!empty($row['path']) && class_exists('SrcImage')) {
+        $extra_images[] = array(
+          'src_image' => new SrcImage(array(
+            'id' => $row['id'],
+            'path' => $row['path'],
+            'representative_ext' => $row['representative_ext']
+          ))
+        );
+      }
+    }
+  }
+  
+  if (isset($params['assign'])) {
+    $smarty->assign($params['assign'], $extra_images);
+  }
+}
+
+function macadam_get_header_albums() {
+  global $template, $user, $conf;
 
   if (isset($GLOBALS['macadam_albums_loaded']))
     return;
   $GLOBALS['macadam_albums_loaded'] = true;
+
+  $display_empty = !empty($conf['display_empty_categories']);
+  $empty_condition = $display_empty ? '' : ' AND uc.count_images > 0';
 
   // Fetch all categories the user has access to, ordered by their rank
   $query = '
@@ -34,6 +109,7 @@ SELECT c.id, c.name, c.permalink, c.id_uppercat, c.comment, uc.count_images, uc.
   FROM ' . CATEGORIES_TABLE . ' c
     INNER JOIN ' . USER_CACHE_CATEGORIES_TABLE . ' uc ON c.id = uc.cat_id AND uc.user_id = ' . $user['id'] . '
     LEFT JOIN ' . IMAGES_TABLE . ' i ON i.id = c.representative_picture_id
+  WHERE c.visible = \'true\'' . $empty_condition . '
   ORDER BY c.global_rank
 ;';
   $result = pwg_query($query);
@@ -47,7 +123,8 @@ SELECT c.id, c.name, c.permalink, c.id_uppercat, c.comment, uc.count_images, uc.
     $row['nb_images'] = $row['count_images'];
     $row['id_UP'] = $row['id_uppercat'];
     $row['TN_ALT'] = htmlspecialchars($row['name']);
-
+    $row['representative_picture_id'] = $row['img_id'];
+    
     if (!empty($row['path']) && class_exists('SrcImage')) {
       $row['representative'] = array(
         'src_image' => new SrcImage(array(
@@ -69,14 +146,12 @@ SELECT c.id, c.name, c.permalink, c.id_uppercat, c.comment, uc.count_images, uc.
   // Build a tree structure (root albums + sub-albums)
   $header_albums = array();
   foreach ($albums_by_id as $id => &$cat) {
-    if (empty($cat['id_uppercat'])) {
+    if (empty($cat['id_uppercat']) || !isset($albums_by_id[$cat['id_uppercat']])) {
       $header_albums[$id] = &$cat;
       // Sum up the cumulative image counts from root albums
       $total_images += $cat['count_images'];
     } else {
-      if (isset($albums_by_id[$cat['id_uppercat']])) {
-        $albums_by_id[$cat['id_uppercat']]['sub_albums'][] = &$cat;
-      }
+      $albums_by_id[$cat['id_uppercat']]['sub_albums'][] = &$cat;
     }
   }
   unset($cat);
@@ -151,6 +226,46 @@ SELECT i.id, i.name, i.file, i.path
   }
 
   $template->assign('MACADAM_THUMBS', $macadam_thumbs);
+}
+
+function macadam_get_thumbnail_details($tpl_thumbnails) {
+  if (!is_array($tpl_thumbnails) || empty($tpl_thumbnails)) return $tpl_thumbnails;
+
+  $image_ids = array();
+  foreach ($tpl_thumbnails as $thumb) {
+    if (isset($thumb['id'])) {
+      $image_ids[] = $thumb['id'];
+    }
+  }
+
+  if (empty($image_ids)) return $tpl_thumbnails;
+
+  $query = '
+SELECT id, file, filesize
+  FROM '.IMAGES_TABLE.'
+  WHERE id IN ('.implode(',', $image_ids).')
+;';
+  $result = pwg_query($query);
+  $details = array();
+  while ($row = pwg_db_fetch_assoc($result)) {
+    $details[$row['id']] = $row;
+  }
+
+  foreach ($tpl_thumbnails as &$thumb) {
+    if (isset($thumb['id']) && isset($details[$thumb['id']])) {
+      $file = $details[$thumb['id']]['file'];
+      $thumb['FILE_EXT'] = pathinfo($file, PATHINFO_EXTENSION);
+      
+      $filesize = $details[$thumb['id']]['filesize'];
+      if (is_numeric($filesize) && $filesize > 0) {
+        // Piwigo stocke la taille en KB. On convertit en MB si c'est plus grand que 1024 KB.
+        $thumb['FILESIZE'] = ($filesize > 1024) ? round($filesize / 1024, 1) . ' MB' : $filesize . ' KB';
+      }
+    }
+  }
+  unset($thumb);
+
+  return $tpl_thumbnails;
 }
 
 ?>
