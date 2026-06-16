@@ -15,6 +15,9 @@
   var error_icon = "{$ROOT_URL}{$themeconf.icon_dir}/errors_small.png", max_requests = {$maxRequests};
 {/footer_script}
 
+{if !empty($category_thumbnails)}
+<p class="macadam-photos-grid-title">{'Photos'|@translate}</p>
+{/if}
 <div class="macadam-photos-grid">
 {foreach from=$thumbnails item=thumbnail}
   {assign var=derivative value=$pwg->derivative($derivative_params, $thumbnail.src_image)}
@@ -23,14 +26,14 @@
     {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
   {/if}
 
-  <div class="macadam-photo-card">
+  <a href="{$thumbnail.URL}" class="macadam-photo-card">
     
-    <a href="{$thumbnail.URL}" class="macadam-photo-link">
+    <div class="macadam-photo-link">
       <img class="photo-thumb-img" 
            {if $derivative->is_cached()}src="{$derivative->get_url()}"{else}src="{$ROOT_URL}{$themeconf.icon_dir}/img_small.png" data-src="{$derivative->get_url()}"{/if} 
            alt="{$thumbnail.TN_ALT}" 
            title="{$thumbnail.TN_TITLE}">
-    </a>
+    </div>
 
     <div class="macadam-photo-infos">
       <div class="macadam-photo-text">
@@ -45,11 +48,11 @@
       </div>
 
       <div class="photo-actions-trigger">
-        <span class="gallery-icon-ellipsis-vert">⋮</span>
+        <i class="icon-three-dot"></i>
       </div>
     </div>
 
-  </div>
+  </a>
 {/foreach}
 </div>
 {/strip}{/if}

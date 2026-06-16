@@ -18,11 +18,27 @@
     <div class="album-wrapper{if $depth > 0} is-sub-album{/if}">
 
       {assign var=derivative value=null}
+      {assign var=main_img_id value=$cat.representative_picture_id|default:0}
       {if isset($cat.representative) && !empty($cat.representative.src_image)}
         {assign var=derivative value=$pwg->derivative($derivative_params, $cat.representative.src_image)}
       {/if}
 
-      {if isset($derivative) && !$derivative->is_cached()}
+      {macadam_get_extra_images cat_id=$cat.id main_img_id=$main_img_id assign="extra_images"}
+      {assign var=extra_derivative_1 value=null}
+      {assign var=extra_derivative_2 value=null}
+      {if isset($extra_images[0])}
+        {assign var=extra_derivative_1 value=$pwg->derivative($derivative_params, $extra_images[0].src_image)}
+      {/if}
+      {if isset($extra_images[1])}
+        {assign var=extra_derivative_2 value=$pwg->derivative($derivative_params, $extra_images[1].src_image)}
+      {/if}
+
+      {assign var=needs_loader value=false}
+      {if (isset($derivative) && !$derivative->is_cached()) || (isset($extra_derivative_1) && !$extra_derivative_1->is_cached()) || (isset($extra_derivative_2) && !$extra_derivative_2->is_cached())}
+        {assign var=needs_loader value=true}
+      {/if}
+
+      {if $needs_loader}
         {combine_script id='jquery.ajaxmanager' path='themes/default/js/plugins/jquery.ajaxmanager.js' load='footer'}
         {combine_script id='thumbnails.loader' path='themes/default/js/thumbnails.loader.js' require='jquery.ajaxmanager' load='footer'}
       {/if}
@@ -39,8 +55,17 @@
           </div>
 
           <div class="sub-thumbs-container">
-            <div class="thumb-sub-block sub-orange"></div>
-            <div class="thumb-sub-block sub-beige"></div>
+            {if isset($extra_derivative_1)}
+              <img {if $extra_derivative_1->is_cached()}src="{$extra_derivative_1->get_url()}" {else}src="{$ROOT_URL}{$themeconf.icon_dir}/img_small.png" data-src="{$extra_derivative_1->get_url()}" {/if} class="thumb-sub-block" alt="">
+            {else}
+              <div class="thumb-sub-block sub-orange"></div>
+            {/if}
+            
+            {if isset($extra_derivative_2)}
+              <img {if $extra_derivative_2->is_cached()}src="{$extra_derivative_2->get_url()}" {else}src="{$ROOT_URL}{$themeconf.icon_dir}/img_small.png" data-src="{$extra_derivative_2->get_url()}" {/if} class="thumb-sub-block" alt="">
+            {else}
+              <div class="thumb-sub-block sub-beige"></div>
+            {/if}
           </div>
         </a>
 
@@ -91,6 +116,10 @@
   {/foreach}
 {/function}
 
+{macadam_has_photos assign="has_photos"}
+{if $has_photos}
+<p class="macadam-photos-grid-title-al">{'Albums'|@translate}</p>
+{/if}
 <div class="macadam-albums-container macadam-main-grid-active">
   {call name=render_album_cards albums=$category_thumbnails depth=0 pwg=$pwg derivative_params=$derivative_params}
 </div>
