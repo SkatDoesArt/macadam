@@ -22,57 +22,62 @@
     {/if}
   {/if}
 
-  <title>{if $PAGE_TITLE!=l10n('Home') && $PAGE_TITLE!=$GALLERY_TITLE}{$PAGE_TITLE} | {/if}{$GALLERY_TITLE}</title>
-  <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
+  <title>
+    {if $PAGE_TITLE!=l10n('Home') && $PAGE_TITLE!=$GALLERY_TITLE}{$PAGE_TITLE} | {/if}{$GALLERY_TITLE}
+      </title>
+      <link rel="shortcut icon" type="image/x-icon" href="{$ROOT_URL}{$themeconf.icon_dir}/favicon.ico">
 
-  <link rel="start" title="{'Home'|translate}" href="{$U_HOME}">
-  <link rel="search" title="{'Search'|translate}" href="{$ROOT_URL}search.php">
+      <link rel="start" title="{'Home'|translate}" href="{$U_HOME}">
+      <link rel="search" title="{'Search'|translate}" href="{$ROOT_URL}search.php">
 
-  {if isset($U_PREFETCH)    }
-  <link rel="prefetch" href="{$U_PREFETCH}">{/if}
-  {if isset($U_CANONICAL)   }
-  <link rel="canonical" href="{$U_CANONICAL}">{/if}
-
-  {if not empty($page_refresh)}
-  <meta http-equiv="refresh" content="{$page_refresh.TIME};url={$page_refresh.U_REFRESH}">{/if}
-
-  {strip}
-    {foreach from=$themes item=theme}
-      {if $theme.load_css}
-        {* For the parent theme (e.g. 'default'), load its standard 'theme.css' file. *}
-        {if $theme.id != 'macadam'}
-          {combine_css path="themes/`$theme.id`/theme.css" order=-10}
-          {* For our specific 'macadam' theme, load its CSS from the correct subfolder. *}
-        {else}
-          {* Import Fontello CSS *}
-          {combine_css path="themes/macadam/css/fontello/css/fontello.css" order=-11}
-          {combine_css path="themes/macadam/css/macadam.css" order=-10}
-        {/if}
+      {if isset($U_PREFETCH)    }
+        <link rel="prefetch" href="{$U_PREFETCH}">
       {/if}
-      {if !empty($theme.local_head)}
-        {include file=$theme.local_head load_css=$theme.load_css}
+      {if isset($U_CANONICAL)   }
+        <link rel="canonical" href="{$U_CANONICAL}">
       {/if}
-    {/foreach}
 
-    {combine_css path="themes/macadam/css/header.css" order=-9}
+      {if not empty($page_refresh)}
+        <meta http-equiv="refresh" content="{$page_refresh.TIME};url={$page_refresh.U_REFRESH}">
+      {/if}
 
-    {combine_script id="jquery" load="footer"}
-  {/strip}
+      {strip}
+        {foreach from=$themes item=theme}
+          {if $theme.load_css}
+            {* For the parent theme (e.g. 'default'), load its standard 'theme.css' file. *}
+            {if $theme.id != 'macadam'}
+              {combine_css path="themes/`$theme.id`/theme.css" order=-10}
+              {* For our specific 'macadam' theme, load its CSS from the correct subfolder. *}
+            {else}
+              {* Import Fontello CSS *}
+              {combine_css path="themes/macadam/css/fontello/css/fontello.css" order=-11}
+              {combine_css path="themes/macadam/css/macadam.css" order=-10}
+            {/if}
+          {/if}
+          {if !empty($theme.local_head)}
+            {include file=$theme.local_head load_css=$theme.load_css}
+          {/if}
+        {/foreach}
 
-  {get_combined_css}
+        {combine_css path="themes/macadam/css/header.css" order=-9}
 
-  {get_combined_scripts load='header'}
-  {if not empty($head_elements)}
-    {foreach from=$head_elements item=elt}
-      {$elt}
-    {/foreach}
-  {/if}
-</head>
+        {combine_script id="jquery" load="footer"}
+      {/strip}
 
-<body id="{$BODY_ID}" class="{foreach from=$BODY_CLASSES item=class}{$class} {/foreach}" data-infos='{$BODY_DATA}'>
+      {get_combined_css}
 
-  <nav class="macadam-sidebar-nav">
-    <div class="sidebar-menu-links">
+      {get_combined_scripts load='header'}
+      {if not empty($head_elements)}
+        {foreach from=$head_elements item=elt}
+          {$elt}
+        {/foreach}
+      {/if}
+      </head>
+
+      <body id="{$BODY_ID}" class="{foreach from=$BODY_CLASSES item=class}{$class} {/foreach}" data-infos='{$BODY_DATA}'>
+
+      <nav class="macadam-sidebar-nav">
+      <div class="sidebar-menu-links">
       <a href="{$U_HOME}" class="sidebar-icon-link" title="{'Home'|translate}"><i class="icon-home"></i></a>
       <a href="{$ROOT_URL}search.php" class="sidebar-icon-link" title="{'Search'|translate}"><i class="icon-lens"></i></a>
 
@@ -110,16 +115,16 @@
                       </ul>
                     {/if}
                     </li>
-                  {/foreach}
-                {/function}
+                {/foreach}
+              {/function}
 
-                {* Call the function with the root albums *}
-                {call name=render_album_list albums=$MACADAM_HEADER_ALBUMS depth=0}
-              {else}
-                <li>
-                  <div class="album-item-row"><a href="#">{'No albums'|translate}</a></div>
-                </li>
-              {/if}
+              {* Call the function with the root albums *}
+              {call name=render_album_list albums=$MACADAM_HEADER_ALBUMS depth=0}
+            {else}
+              <li>
+                <div class="album-item-row"><a href="#">{'No albums'|translate}</a></div>
+              </li>
+            {/if}
           </ul>
 
           {if isset($MACADAM_TOTAL_ALBUMS) && $MACADAM_TOTAL_ALBUMS > 0}
@@ -133,11 +138,11 @@
         </div>
       </div>
 
-      <a href="{$U_MODE_CREATED|default:"`$ROOT_URL`index.php?/created-monthly"}" class="sidebar-icon-link" title="{'Discovery'|translate}"><i class="icon-add"></i></a>
+      <a href="{$U_MODE_CREATED|default:" `$ROOT_URL`index.php?/created-monthly"}" class="sidebar-icon-link" title="{'Discovery'|translate}"><i class="icon-add"></i></a>
 
       {* Dropdown container for Tags *}
       <div class="sidebar-dropdown-container">
-        <a href="{$U_TAGS|default:"`$ROOT_URL`tags.php"}" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Tags'|translate}"><i class="icon-tags"></i></a>
+        <a href="{$U_TAGS|default:" `$ROOT_URL`tags.php"}" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Tags'|translate}"><i class="icon-tags"></i></a>
         <div class="sidebar-dropdown-menu">
           <div class="dropdown-menu-title">{'Tags'|translate}</div>
           <ul class="album-dropdown-list">
@@ -159,7 +164,7 @@
       {* Dropdown container for Collections / Favorites *}
       <div class="sidebar-dropdown-container">
         {if isset($user_collections)}
-          <a href="{$U_USER_COLLECTIONS|default:"#"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Collections'|translate}"><i class="icon-star"></i></a>
+          <a href="{$U_USER_COLLECTIONS|default:" #"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Collections'|translate}"><i class="icon-star"></i></a>
           <div class="sidebar-dropdown-menu">
             <div class="dropdown-menu-title">{'Collections'|translate}</div>
             <ul class="album-dropdown-list">
@@ -177,7 +182,7 @@
             </ul>
           </div>
         {else}
-          <a href="{$U_FAVORITES|default:"`$ROOT_URL`index.php?/favorites"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
+          <a href="{$U_FAVORITES|default:" `$ROOT_URL`index.php?/favorites"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
           <div class="sidebar-dropdown-menu">
             <div class="dropdown-menu-title">{'Favorites'|translate}</div>
             <ul class="album-dropdown-list">
@@ -206,9 +211,9 @@
             <div class="dropdown-menu-title">{'Account'|translate}</div>
             <ul class="album-dropdown-list">
               {if isset($U_ADMIN)}
-              <li>
-                <div class="tag-item-row"><a href="{$U_ADMIN}">{'Administration'|translate}</a></div>
-              </li>
+                <li>
+                  <div class="tag-item-row"><a href="{$U_ADMIN}">{'Administration'|translate}</a></div>
+                </li>
               {/if}
               <li>
                 <div class="tag-item-row"><a href="{$U_PROFILE}">{'Customize'|translate}</a></div>
@@ -224,23 +229,23 @@
               </li>
             </ul>
             {if isset($U_LOGOUT)}
-            <div class="dropdown-menu-footer" style="justify-content: start; padding-top: 20px;">
-              <div class="tag-item-row" style="padding-bottom: 10px;">
-                <a href="{$U_LOGOUT}">{'Logout'|translate}</a>
+              <div class="dropdown-menu-footer" style="justify-content: start; padding-top: 20px;">
+                <div class="tag-item-row" style="padding-bottom: 10px;">
+                  <a href="{$U_LOGOUT}">{'Logout'|translate}</a>
+                </div>
               </div>
-            </div>
             {/if}
           </div>
         </div>
       {/if}
       {* {if isset($U_ADMIN)}
-    <a href="{$U_ADMIN}" class="sidebar-icon-link" title="{'Administration'|translate}">⚙️</a>
-    {/if} *}
-    </div>
+        <a href="{$U_ADMIN}" class="sidebar-icon-link" title="{'Administration'|translate}">⚙️</a>
+      {/if} *}
+      </div>
 
-    {* Script to handle sub-albums toggle on click *}
+      {* Script to handle sub-albums toggle on click *}
     <script>
-      document.addEventListener('DOMContentLoaded', function() { 
+      document.addEventListener('DOMContentLoaded', function() {
         /* Align dropdown menu top with the vertical position of the button */
         document.querySelectorAll('.sidebar-dropdown-container').forEach(function(container) {
           var menu = container.querySelector('.sidebar-dropdown-menu');
@@ -252,39 +257,41 @@
           }
         });
       });
-    </script>
-    {footer_script}
+      </script>
+      {footer_script}
       jQuery(document).ready(function($) {
-        $('.sidebar-dropdown-menu').on('click', '.album-toggle', function(e) {
-          e.preventDefault();
-          e.stopPropagation();
-          $(this).toggleClass('open');
-          $(this).closest('li').children('.sub-album-list').slideToggle(250);
-        });
+      $('.sidebar-dropdown-menu').on('click', '.album-toggle', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      $(this).toggleClass('open');
+      $(this).closest('li').children('.sub-album-list').slideToggle(250);
       });
-    {/footer_script}
-  </nav>
+      });
+      {/footer_script}
+      </nav>
 
-  <div id="the_page" class="macadam-main-container">
+      <div id="the_page" class="macadam-main-container">
 
-    {* {if not empty($header_msgs)}
-    <div class="header_msgs">
+      {* {if not empty($header_msgs)}
+      <div class="header_msgs">
 
 
-      {foreach from=$header_msgs item=elt}
+        {foreach from=$header_msgs item=elt}
           {$elt}<br>
 
 
-      {/foreach}
-    </div>
+        {/foreach}
+      </div>
 
 
     {/if} *}
 
-    <div id="theHeader" class="macadam-header-banner">
+      <div id="theHeader" class="macadam-header-banner {if $BODY_ID == 'thePicturePage'}picture-header-only{/if}">
       <div class="macadam-header-content">
 
-        <h1 class="macadam-gallery-title">DEMO GALLERY</h1>
+        {if $BODY_ID != 'thePicturePage'}
+          <h1 class="macadam-gallery-title">DEMO GALLERY</h1>
+        {/if}
 
         <div class="macadam-header-search">
           <form action="{$ROOT_URL}search.php" method="get">
@@ -294,12 +301,12 @@
         </div>
 
       </div>
-    </div>
+      </div>
 
-    {if not empty($header_notes)}
-      <div class="header_notes">
+      {if not empty($header_notes)}
+        <div class="header_notes">
         {foreach from=$header_notes item=elt}
           <p>{$elt}</p>
         {/foreach}
-      </div>
-{/if}
+        </div>
+      {/if}

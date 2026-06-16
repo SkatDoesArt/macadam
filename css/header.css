@@ -360,3 +360,18 @@ a.sidebar-icon-link:hover i::before,
 .dropdown-menu-footer .album-counts {
   margin-left: 0;
 }
+
+
+.macadam-header-banner.picture-header-only {
+  padding-top: 15px !important;
+  padding-bottom: 15px !important;
+  min-height: auto !important;
+  background: none !important;
+  height: unset !important;
+  margin-top: 20px !important;
+  margin-bottom: 0px !important;
+}
+
+.picture-header-only .macadam-header-content {
+  align-items: flex-start;
+}
