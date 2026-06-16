@@ -73,7 +73,8 @@ BODY {
 
 .macadam-breadcrumb-zone i {
   font-size: 22px;
-  color: #777777;
+  margin-right: 8px;
+  /* color: #777777; */
 }
 
 .macadam-index-bar i {
@@ -117,7 +118,6 @@ BODY {
 .macadam-actions-zone ul {
   display: flex;
   align-items: center;
-  gap: 15px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -136,24 +136,18 @@ BODY {
   color: var(--menu-icon-hover) !important;
 }
 
-/* Par défaut, la section Liste est complètement cachée */
 .list-mode-active {
   display: none !important;
 }
 
-/* Par défaut, la section Grille est visible */
 .grid-mode-active {
   display: block !important;
 }
 
-/* --- QUAND ON ACTIVE LE MODE LISTE (au clic sur l'émoji) --- */
-
-/* On cache la section Grille */
 .layout-view-list .grid-mode-active {
   display: none !important;
 }
 
-/* On affiche la section Liste */
 .layout-view-list .list-mode-active {
   display: block !important;
 }
@@ -785,6 +779,11 @@ BODY {
 
 /* picture */
 
+.picture-index-bar {
+  margin: 0 3% 35px;
+  margin-bottom: 0px;
+}
+
 .macadam-picture-container {
   display: flex;
   width: 100%;
@@ -893,7 +892,7 @@ ul.macadam-info-list li {
 }
 
 
-/* picture menu dorpdown */
+/* picture menu dropdown */
 
 .macadam-actions-zone {
   position: relative;
@@ -919,8 +918,7 @@ ul.macadam-info-list li {
 }
 
 .macadam-dropdown-actions:hover .dropdown-trigger-btn {
-  transform: rotate(45deg);
-  color: #5e6080;
+  color: #5C6AE2;
 }
 
 .dropdown-menu-list {
@@ -928,7 +926,6 @@ ul.macadam-info-list li {
   position: absolute;
   top: 100%;
   right: 0;
-  gap : 5px !important;
   min-width: 285px;
   background-color: #ffffff !important;
   border: 1px solid #e2e8f0 !important;
@@ -938,7 +935,23 @@ ul.macadam-info-list li {
   padding: 8px 0 !important;
   margin: 4px 0 0 0 !important;
   z-index: 9999 !important;
-  flex-direction: column;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+}
+
+.dropdown-menu-list .icon-arrow-left {
+  display: inline-flex !important;
+  padding: 12px 0 0 12px !important; 
+  font-size: 16px !important;
+  color: #4c566a !important;
+  cursor: pointer;
+}
+
+.dropdown-menu-lst-inner {
+  flex: 1 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 5px !important;
 }
 
 .macadam-dropdown-actions:hover .dropdown-menu-list {
@@ -957,9 +970,8 @@ ul.macadam-info-list li {
 .dropdown-menu-list .dropdown-item .pwg-button {
   display: flex !important;
   align-items: center !important;
+  padding: 8px 16px !important;
   gap: 12px !important;
-  padding: 5px 6px !important;
-  color: #2e3440 !important;
   text-decoration: none !important;
   font-size: 0.95rem !important;
   font-weight: 400 !important;
@@ -971,21 +983,12 @@ ul.macadam-info-list li {
   box-sizing: border-box !important;
   text-align: left !important;
   cursor: pointer !important;
-  /* transition: background-color 0.15s ease, color 0.15s ease !important; */
 }
-
-/* Effet Hover sur les lignes du menu */
-/* .dropdown-menu-list .dropdown-item a:hover,
-.dropdown-menu-list .dropdown-item .pwg-button:hover {
-  background-color: #f8fafc !important;
-  color: #5e6080 !important;
-} */
 
 .dropdown-menu-list .dropdown-item i,
 .dropdown-menu-list .dropdown-item .pwg-icon {
   font-size: 1.2rem !important;
   text-align: center !important;
-  color: #4c566a !important;
   display: inline-block !important;
   position: static !important;
   margin: 0 !important;
@@ -1004,16 +1007,62 @@ ul.macadam-info-list li {
   list-style: none;
 }
 
-.dropdown-item .switchBox {
+.dropdown-menu-list .dropdown-item.has-switchbox {
+  position: relative !important;
+}
+
+.dropdown-item #derivativeSwitchBox.switchBox {
   display: none;
   position: absolute !important;
-  right: 102% !important; 
+  right: 104% !important;
   top: 0 !important;
-  width: 200px !important;
+  width: 180px !important;
   background: #ffffff !important;
   border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08) !important;
-  border-radius: 6px !important;
-  padding: 8px !important;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
+  border-radius: 8px !important;
+  padding: 12px 0 !important; 
   z-index: 10000 !important;
+  font-family: sans-serif;
+}
+
+#derivativeSwitchBox .switchBoxTitle {
+  display: none !important;
+}
+
+#derivativeSwitchBox br {
+  display: none !important;
+}
+
+#derivativeSwitchBox .derivativeSizeDetails {
+  display: none !important;
+}
+
+#derivativeSwitchBox a {
+  display: flex !important;
+  align-items: center;
+  padding: 10px 20px 10px 45px !important;
+  color: #2d3748 !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  transition: background 0.2s ease, color 0.2s ease;
+  position: relative;
+}
+
+#derivativeSwitchBox a:hover {
+  background-color: #f7fafc !important;
+  color: #4a5568 !important;
+}
+
+#derivativeSwitchBox .switchCheck {
+  position: absolute !important;
+  left: 16px !important;
+  transform: translateY(11px) !important; 
+  font-size: 14px !important;
+  color: #4c51bf !important;
+  z-index: 2;
+}
+
+.dropdown-menu-lst-inner i{
+  font-size:16px !important;
 }
