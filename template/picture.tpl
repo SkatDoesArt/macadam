@@ -43,7 +43,9 @@
                     }
                     jQuery('#derivativeSwitchBox .switchCheck').css('visibility','hidden');
                     jQuery('#derivativeChecked'+typeMap).css('visibility','visible');
-                    document.cookie = 'picture_deriv='+typeSave+';path={/literal}{$COOKIE_PATH}{literal}';
+                    document.cookie = 'picture_deriv='+typeSave+';path=
+                  {/literal}{$COOKIE_PATH}
+                  {literal}  ';
                     }
                     (window.SwitchBox=window.SwitchBox||[]).push(".dropdown-item.has-switchbox #derivativeSwitchLink", ".dropdown-item.has-switchbox #derivativeSwitchBox");
                   {/literal}{/footer_script}
@@ -211,8 +213,10 @@
 
   <aside class="macadam-picture-sidebar">
     <div class="sidebar-tabs">
-      <button class="tab-btn active" id="tabInfoLink" title="Informations">ⓘ</button>
-      <button class="tab-btn" id="tabCommentsLink" title="Commentaires">💬 {if isset($COMMENT_COUNT)}({$COMMENT_COUNT}){/if}</button>
+      <button class="tab-btn active" id="tabInfoLink" title="Informations"><i class="icon-i"></i></button>
+      <button class="tab-btn" id="tabCommentsLink" title="Commentaires"><i class="icon-discuss"></i>
+        {if isset($COMMENT_COUNT)}({$COMMENT_COUNT}){/if}
+      </button>
     </div>
 
     <div class="sidebar-scrollable-content">
@@ -228,6 +232,7 @@
         {if ($display_info.tags and isset($related_tags))}
           <div class="sidebar-section-tags">
             <div class="tag-badges-container">
+              <i class="icon-tags"></i>
               {foreach from=$related_tags item=tag}
                 <a href="{$tag.URL}" class="macadam-tag-badge">{$tag.name}</a>
               {/foreach}
@@ -239,19 +244,19 @@
           <ul class="macadam-info-list">
             {if $display_info.created_on and isset($INFO_CREATION_DATE)}
               <li>
-                <i class="icon-add-calendar"></i>
+                <i class="icon-calendar"></i>
                 <span class="info-value">{$INFO_CREATION_DATE}</span>
               </li>
             {/if}
             {if $display_info.posted_on}
               <li>
-                <span class="info-icon">📤</span>
+                <i class="icon-add-calendar"></i>
                 <span class="info-value">{$INFO_POSTED_DATE}</span>
               </li>
             {/if}
             {if $display_info.filesize and isset($INFO_FILESIZE)}
               <li>
-                <span class="info-icon">🖴</span>
+                <i class="icon-db"></i>
                 <span class="info-value">{$INFO_FILESIZE}</span>
               </li>
             {/if}

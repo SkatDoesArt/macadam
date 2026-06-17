@@ -483,7 +483,7 @@ BODY {
 }
 
 .photo-title {
-  margin: 0;
+  margin: 30px 0;
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 600;
@@ -493,13 +493,14 @@ BODY {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  text-align: left;
+  text-align: center;
 }
 
 .imageComment {
   text-align: left;
   font-size: 12px;
-  padding: 10px 0;
+  padding: 10px 10px;
+  line-height: 1.4;
 }
 
 .photo-meta {
@@ -908,7 +909,7 @@ body.thePicturePage #content {
 }
 .sidebar-tabs .tab-btn {
   flex: 1;
-  padding: 15px;
+  padding: 45px;
   background: none;
   border: none;
   font-size: 1.2rem;
@@ -931,6 +932,11 @@ body.thePicturePage #content {
   gap: 8px;
   margin-bottom: 20px;
   padding: 10px 0;
+}
+
+.tag-badges-container i{
+  font-size: 16px;
+  color: #4c566a;
 }
 .macadam-tag-badge {
   background-color: #434980;
@@ -970,6 +976,18 @@ ul.macadam-info-list li {
   font-size: 14px;
   font-weight: 600;
 }
+
+ul.macadam-info-list li i {
+  font-size: 16px;
+  margin-right: 10px;
+  color: #4c566a;
+}
+
+ul.macadam-info-list li i.icon-eye{
+  font-size: 13px;
+  margin-right: 15px;
+}
+
 
 .macadam-footer {
   text-align: center;
