@@ -8,6 +8,7 @@
   <meta charset="{$CONTENT_ENCODING}">
   <meta name="generator" content="Piwigo (aka PWG), see piwigo.org">
 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   {if isset($meta_ref)}
     {if isset($INFO_AUTHOR)}
       <meta name="author" content="{$INFO_AUTHOR|strip_tags:false|replace:'"':' '}">
@@ -77,6 +78,7 @@
       <body id="{$BODY_ID}" class="{foreach from=$BODY_CLASSES item=class}{$class} {/foreach}" data-infos='{$BODY_DATA}'>
 
       <nav class="macadam-sidebar-nav">
+      <div class="mobile-menu-overlay"></div>
       <div class="sidebar-menu-links">
       <a href="{$U_HOME}" class="sidebar-icon-link" title="{'Home'|translate}"><i class="icon-home"></i></a>
       <a href="{$ROOT_URL}search.php" class="sidebar-icon-link" title="{'Search'|translate}"><i class="icon-lens"></i></a>
@@ -85,7 +87,8 @@
       <div class="sidebar-dropdown-container">
         <a href="#" onclick="return false;" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Albums'|translate}"><i class="icon-structure"></i></a>
 
-        <div class="sidebar-dropdown-menu">
+        <div class="sidebar-dropdown-menu album-menu">
+          <i class="icon-cross usable-icon mobile-close-btn"></i>
           <div class="dropdown-menu-title">{'Albums'|translate}</div>
           <ul class="album-dropdown-list">
             {if isset($MACADAM_HEADER_ALBUMS) && !empty($MACADAM_HEADER_ALBUMS)}
@@ -142,8 +145,9 @@
 
       {* Dropdown container for Tags *}
       <div class="sidebar-dropdown-container">
-        <a href="{$U_TAGS|default:" `$ROOT_URL`tags.php"}" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Tags'|translate}"><i class="icon-tags"></i></a>
+        <a href="" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Tags'|translate}"><i class="icon-tags"></i></a>
         <div class="sidebar-dropdown-menu">
+          <i class="icon-cross usable-icon mobile-close-btn"></i>
           <div class="dropdown-menu-title">{'Tags'|translate}</div>
           <ul class="album-dropdown-list">
             {if isset($MACADAM_HEADER_TAGS) && !empty($MACADAM_HEADER_TAGS)}
@@ -164,8 +168,9 @@
       {* Dropdown container for Collections / Favorites *}
       <div class="sidebar-dropdown-container">
         {if isset($user_collections)}
-          <a href="{$U_USER_COLLECTIONS|default:" #"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Collections'|translate}"><i class="icon-star"></i></a>
+          <a href="" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Collections'|translate}"><i class="icon-star"></i></a>
           <div class="sidebar-dropdown-menu">
+            <i class="icon-cross usable-icon mobile-close-btn"></i>
             <div class="dropdown-menu-title">{'Collections'|translate}</div>
             <ul class="album-dropdown-list">
               {if !empty($user_collections)}
@@ -182,8 +187,9 @@
             </ul>
           </div>
         {else}
-          <a href="{$U_FAVORITES|default:" `$ROOT_URL`index.php?/favorites"}" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
+          <a href="" class="sidebar-icon-link-drop sidebar-icon-link" title="{'Favorites'|translate}"><i class="icon-star"></i></a>
           <div class="sidebar-dropdown-menu">
+            <i class="icon-cross usable-icon mobile-close-btn"></i>
             <div class="dropdown-menu-title">{'Favorites'|translate}</div>
             <ul class="album-dropdown-list">
               {if isset($MACADAM_HEADER_FAVORITES) && !empty($MACADAM_HEADER_FAVORITES)}
@@ -206,8 +212,9 @@
         <a href="{$U_LOGIN_REGISTER}" class="sidebar-icon-link" title="{'Login'|translate}"><i class="icon-person"></i></a>
       {else if isset($U_PROFILE)}
         <div class="sidebar-dropdown-container">
-          <a href="{$U_PROFILE}" class="sidebar-icon-link" title="{'Profile'|translate}"><i class="icon-person"></i></a>
+          <a href="" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Profile'|translate}"><i class="icon-person"></i></a>
           <div class="sidebar-dropdown-menu">
+            <i class="icon-cross usable-icon mobile-close-btn"></i>
             <div class="dropdown-menu-title">{'Account'|translate}</div>
             <ul class="album-dropdown-list">
               {if isset($U_ADMIN)}
@@ -246,14 +253,67 @@
       {* Script to handle sub-albums toggle on click *}
     <script>
       document.addEventListener('DOMContentLoaded', function() {
+        var overlay = document.querySelector('.mobile-menu-overlay');
+
+        function closeAllMenus() {
+          document.querySelectorAll('.sidebar-dropdown-container.mobile-active').forEach(function(c) {
+            c.classList.remove('mobile-active');
+          });
+          if (overlay) overlay.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+
+        if (overlay) {
+          overlay.addEventListener('click', function() {
+            closeAllMenus();
+          });
+        }
+
         /* Align dropdown menu top with the vertical position of the button */
         document.querySelectorAll('.sidebar-dropdown-container').forEach(function(container) {
           var menu = container.querySelector('.sidebar-dropdown-menu');
           if (menu) {
             container.addEventListener('mouseenter', function() {
-              var rect = container.getBoundingClientRect();
-              menu.style.top = rect.top - 10 + 'px';
+              if (window.innerWidth > 768) {
+                var rect = container.getBoundingClientRect();
+                menu.style.top = rect.top - 10 + 'px';
+              }
             });
+
+            // Ouverture sur mobile
+            var toggleBtn = container.querySelector('.sidebar-icon-link-drop');
+            if (toggleBtn) {
+              toggleBtn.addEventListener('click', function(e) {
+                if (window.innerWidth <= 768) {
+                  e.preventDefault();
+                  
+                  // Si ce menu est déjà ouvert, on le ferme
+                  if (container.classList.contains('mobile-active')) {
+                    container.classList.remove('mobile-active');
+                    document.body.style.overflow = '';
+                    return;
+                  }
+
+                  // Sinon on ferme d'abord tous les autres
+                  document.querySelectorAll('.sidebar-dropdown-container.mobile-active').forEach(function(activeContainer) {
+                    activeContainer.classList.remove('mobile-active');
+                  });
+
+                  container.classList.add('mobile-active');
+                  document.body.style.overflow = 'hidden'; // Bloque le scroll arrière
+                }
+              });
+            }
+
+            // Fermeture sur mobile
+            var closeBtn = container.querySelector('.mobile-close-btn');
+            if (closeBtn) {
+              closeBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                closeAllMenus();
+              });
+            }
           }
         });
       });

@@ -25,6 +25,7 @@
   width: 100%;
   max-width: 600px;
   padding: 0 20px;
+  box-sizing: border-box;
   z-index: 2;
 }
 
@@ -75,6 +76,7 @@
   color: #333333;
   outline: 1px solid #C1C1C1;
   transition: box-shadow 0.2s ease;
+  box-sizing: border-box;
 }
 
 .macadam-header-search input[type="text"]::placeholder {
@@ -374,4 +376,140 @@ a.sidebar-icon-link:hover i::before,
 
 .picture-header-only .macadam-header-content {
   align-items: flex-start;
+}
+
+.mobile-menu-overlay {
+  display: none;
+}
+
+.mobile-close-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .macadam-sidebar-nav {
+    position: fixed !important;
+    bottom: 0 !important;
+    top: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 65px !important;
+    background-color: #ffffff !important;
+    border-top: 1px solid #e5e5e5 !important;
+    border-right: none !important;
+    z-index: 1050 !important;
+    display: flex !important;
+    align-items: center !important;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.05) !important;
+  }
+
+  .sidebar-menu-links {
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    justify-content: space-around !important;
+    align-items: center !important;
+    margin: 0 !important;
+    padding: 0 40px !important;
+  }
+
+  .macadam-main-container {
+    margin-left: 0 !important;
+    width: 100vw !important;
+    min-width: 0 !important;
+    padding-bottom: 75px !important;
+  }
+
+  .mobile-menu-overlay.active {
+    display: block !important;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 65px);
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 1035;
+  }
+
+  .sidebar-dropdown-menu {
+    display: none !important;
+    position: fixed !important;
+    bottom: 65px !important;
+    top: auto !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: auto !important;
+    max-height: calc(100vh - 65px) !important;
+    background: #ffffff !important;
+    z-index: 1040 !important;
+    flex-direction: column !important;
+    overflow-y: auto !important;
+    padding: 35px 20px 20px 20px !important;
+    box-sizing: border-box !important;
+    box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1) !important;
+    border: none !important;
+    border-radius: 20px 20px 0 0 !important;
+  }
+
+  .sidebar-dropdown-menu.album-menu {
+    height: calc(100vh - 65px) !important;
+    border-radius: 0 !important;
+    padding: 60px 20px 20px 20px !important;
+  }
+
+  .macadam-gallery-title, 
+  .macadam-header-banner a {
+    font-size: 40px !important;
+  }
+
+  .sidebar-dropdown-container.mobile-active .sidebar-dropdown-menu {
+    display: flex !important;
+  }
+
+  .mobile-close-btn {
+    display: flex !important;
+    position: absolute;
+    top: 15px !important;
+    right: 20px !important;
+    font-size: 13px !important;
+    cursor: pointer;
+  }
+
+  .album-menu .mobile-close-btn {
+    top: 21px !important;
+    right: 21px !important;
+  }
+
+  .sidebar-dropdown-container {
+    width: unset !important;
+  }
+
+  .sidebar-icon-link-drop::before,
+  .sidebar-icon-link-drop::after,
+  .sidebar-dropdown-container::after {
+    display: none !important;
+  }
+
+  .dropdown-menu-title {
+    text-align: center !important;
+    padding: 0px 20px 25px !important;
+  }
+
+  .album-menu .dropdown-menu-title {
+    padding: 20px 20px 35px !important;
+  }
+
+  .tag-item-row {
+    justify-content: center !important;
+    padding: 0 20px 20px !important;
+  }
+
+  .dropdown-menu-footer {
+    justify-content: center !important;
+    padding-bottom: 0 !important;
+  }
+
+  .dropdown-menu-footer .tag-item-row {
+    padding-bottom: 0 !important;
+  }
 }

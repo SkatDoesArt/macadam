@@ -30,8 +30,6 @@ a:hover {
 }
 
 #content.content {
-  margin-left: 60px !important;
-  width: calc(100% - 60px) !important;
   padding: 40px 50px !important;
   box-sizing: border-box;
   background: transparent !important;
@@ -330,7 +328,7 @@ BODY {
   height: 100%;
   flex-shrink: 0;
   display: flex;
-  border-right: 1px solid #C1C1C1;
+  border-right: 1px solid #c1c1c1;
 }
 
 .macadam-albums-container.macadam-main-grid-active .macadam-album-infos {
@@ -362,7 +360,7 @@ BODY {
   .macadam-album-thumbs {
   width: 100% !important;
   height: 165px !important;
-  border-bottom: 1px solid #C1C1C1;
+  border-bottom: 1px solid #c1c1c1;
 }
 
 .macadam-albums-container.macadam-main-grid-active.view-grid
@@ -375,15 +373,18 @@ BODY {
   display: none !important;
 }
 
-.macadam-albums-container.macadam-main-grid-active.view-grid .album-actions-trigger {
+.macadam-albums-container.macadam-main-grid-active.view-grid
+  .album-actions-trigger {
   margin-top: 10px !important;
 }
 
-.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-header {
+.macadam-albums-container.macadam-main-grid-active.view-grid
+  .macadam-album-header {
   margin-bottom: 0px !important;
 }
 
-.macadam-albums-container.macadam-main-grid-active.view-grid .album-footer-icon {
+.macadam-albums-container.macadam-main-grid-active.view-grid
+  .album-footer-icon {
   display: none !important;
 }
 /* (SWITCHBOX)  */
@@ -419,12 +420,12 @@ BODY {
   font-weight: 400;
   line-height: 100%;
   letter-spacing: 0;
-  color: #C1C1C1;
+  color: #c1c1c1;
   max-width: 1100px;
   margin: 15px auto;
   text-align: start;
   padding-top: 20px;
-  border-top: 1px solid #C1C1C1;
+  border-top: 1px solid #c1c1c1;
 }
 
 .macadam-photos-grid-title-al {
@@ -433,7 +434,7 @@ BODY {
   font-weight: 400;
   line-height: 100%;
   letter-spacing: 0;
-  color: #C1C1C1;
+  color: #c1c1c1;
   max-width: 1100px;
   margin: -30px auto 15px;
   text-align: start;
@@ -447,22 +448,26 @@ BODY {
   border-radius: 5px;
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
-  border: 1px solid #C1C1C1;
+  border: 1px solid #c1c1c1;
   text-decoration: none !important;
   color: inherit;
+}
+
+.macadam-photo-card:hover {
+  border: 1px solid #c1c1c1;
 }
 
 .macadam-photo-link {
   width: 100%;
   display: block;
   overflow: hidden;
-  background-color: #F6F7FF;
+  background-color: #f6f7ff;
 }
 
 .photo-thumb-img {
   width: 100%;
   height: 165px;
-  border-bottom: 1px solid #C1C1C1;
+  border-bottom: 1px solid #c1c1c1;
   object-fit: contain;
   transition: transform 0.3s ease;
 }
@@ -480,6 +485,7 @@ BODY {
   flex-direction: column;
   gap: 4px;
   overflow: hidden;
+  min-width: 0;
 }
 
 .photo-title {
@@ -868,7 +874,7 @@ body.thePicturePage #content {
   width: 100%;
   min-height: calc(100vh - 80px);
   background-color: #f7f9fa;
-  padding-right: 350px; 
+  padding-right: 350px;
   box-sizing: border-box;
 }
 
@@ -890,7 +896,7 @@ body.thePicturePage #content {
   border-left: 1px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  z-index: 9999 !important; 
+  z-index: 9999 !important;
   box-shadow: -2px 0 10px rgba(0, 0, 0, 0.05);
 }
 
@@ -1005,7 +1011,6 @@ ul.macadam-info-list li i.icon-eye{
   margin: 0;
 }
 
-
 /* picture menu dropdown */
 
 .macadam-actions-zone {
@@ -1032,11 +1037,11 @@ ul.macadam-info-list li i.icon-eye{
 }
 
 .macadam-dropdown-actions:hover .dropdown-trigger-btn {
-  color: #5C6AE2;
+  color: #5c6ae2;
 }
 
 .dropdown-menu-list {
-  display: none !important; 
+  display: none !important;
   position: absolute;
   top: 100%;
   right: 0;
@@ -1053,9 +1058,18 @@ ul.macadam-info-list li i.icon-eye{
   align-items: flex-start !important;
 }
 
+.dropdown-menu-list::before {
+  content: "";
+  position: absolute;
+  top: -15px;
+  left: 0;
+  width: 100%;
+  height: 15px;
+}
+
 .dropdown-menu-list .icon-arrow-left {
   display: inline-flex !important;
-  padding: 12px 0 0 12px !important; 
+  padding: 12px 0 0 12px !important;
   font-size: 16px !important;
   color: #4c566a !important;
   cursor: pointer;
@@ -1077,7 +1091,7 @@ ul.macadam-info-list li i.icon-eye{
   width: 100% !important;
   padding: 0 !important;
   margin: 0 !important;
-  float: none !important; 
+  float: none !important;
 }
 
 .dropdown-menu-list .dropdown-item a,
@@ -1121,21 +1135,46 @@ ul.macadam-info-list li i.icon-eye{
   list-style: none;
 }
 
-.dropdown-menu-list .dropdown-item.has-switchbox {
+.dropdown-menu-list .dropdown-item {
   position: relative !important;
 }
 
-.dropdown-item #derivativeSwitchBox.switchBox {
+.dropdown-menu-list .dropdown-item:hover .switchBox {
+  display: block !important;
+}
+
+.dropdown-menu-list .dropdown-item:hover > a,
+.dropdown-menu-list .dropdown-item:hover > a i,
+.dropdown-menu-list .dropdown-item:hover > a .pwg-button-text {
+  color: var(--menu-icon-hover) !important;
+}
+
+.dropdown-menu-list:has(.dropdown-item.has-switchbox:hover) > .icon-arrow-left {
+  color: var(--menu-icon-hover) !important;
+}
+
+.dropdown-item .switchBox::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: -60px;
+  width: 60px;
+  height: 100%;
+}
+
+.dropdown-item .switchBox {
   display: none;
   position: absolute !important;
-  right: 104% !important;
-  top: 0 !important;
+  right: 110% !important;
+  margin-right: 10px !important;
+  left: auto !important;
+  top: -10px !important;
   width: 180px !important;
   background: #ffffff !important;
   border: 1px solid #e2e8f0 !important;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
   border-radius: 8px !important;
-  padding: 12px 0 !important; 
+  padding: 12px 0 !important;
   z-index: 10000 !important;
   font-family: sans-serif;
 }
@@ -1159,8 +1198,15 @@ ul.macadam-info-list li i.icon-eye{
   color: #2d3748 !important;
   text-decoration: none !important;
   font-size: 14px !important;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition:
+    background 0.2s ease,
+    color 0.2s ease;
   position: relative;
+}
+
+#downloadSwitchBox a {
+  padding: 10px 20px !important;
+  justify-content: space-between;
 }
 
 #derivativeSwitchBox a:hover {
@@ -1171,14 +1217,39 @@ ul.macadam-info-list li i.icon-eye{
 #derivativeSwitchBox .switchCheck {
   position: absolute !important;
   left: 16px !important;
-  transform: translateY(11px) !important; 
+  transform: translateY(11px) !important;
   font-size: 14px !important;
   color: #4c51bf !important;
   z-index: 2;
 }
 
-.dropdown-menu-lst-inner i{
-  font-size:16px !important;
+#downloadSwitchBox ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#downloadSwitchBox .switchBoxTitle {
+  font-weight: bold;
+  padding: 0 20px 10px 20px;
+  font-size: 13px;
+  color: #4c566a;
+  border-bottom: 1px solid #e2e8f0;
+  margin-bottom: 5px;
+}
+
+#downloadSwitchBox a:hover {
+  background-color: #f7fafc !important;
+  color: #4a5568 !important;
+}
+
+#downloadSwitchBox .downloadformatDetails {
+  color: #718096 !important;
+  font-size: 11px !important;
+}
+
+.dropdown-menu-lst-inner i {
+  font-size: 16px !important;
 }
 
 /* comment section on the sidebar  */
@@ -1379,3 +1450,334 @@ form#addComment input[type="submit"]:active {
   transform: scale(0.98);
 }
 
+/* comment section on the sidebar  */
+
+#comments {
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  gap: 24px !important;
+}
+
+#pictureCommentList {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  order: 1 !important;
+}
+
+#commentAdd {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  order: 2 !important;
+  margin-top: 10px;
+}
+
+form#addComment {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+#comments h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1e293b;
+  margin: 10px 0 15px 0 !important;
+}
+
+
+ul.commentsList {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 16px !important;
+  width: 100% !important;
+}
+
+li.commentElement {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  background-color: #f8fafc !important;
+  border: none !important;
+  border-radius: 12px !important;
+  padding: 16px !important;
+  margin: 0 0 16px 0 !important;
+}
+
+li.commentElement.odd, 
+li.commentElement.even {
+  background-color: #f8fafc !important;
+}
+
+/* message content */
+
+li.commentElement .description {
+  width: 100% !important;
+}
+
+li.commentElement .commentAuthor {
+  font-weight: 600 !important;
+  color: #1e293b !important;
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+
+li.commentElement .commentAuthor a {
+  color: #1e293b !important;
+  text-decoration: none !important;
+}
+
+li.commentElement .commentDate {
+  color: #64748b !important;
+  font-size: 0.85rem;
+  font-weight: 400 !important;
+  font-style: italic;
+}
+
+li.commentElement blockquote {
+  margin: 10px 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  background: none !important;
+}
+
+li.commentElement blockquote div {
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+  color: #334155 !important;
+  font-style: normal !important;
+}
+
+/* actions line */
+
+li.commentElement .actions {
+  display: flex !important;
+  justify-content: flex-end !important;
+  gap: 12px;
+  margin-top: 10px;
+  font-size: 0.8rem !important;
+  border-top: 1px solid #edf2f7;
+  padding-top: 8px;
+}
+
+li.commentElement .actions a {
+  color: #64748b !important;
+  text-decoration: none !important;
+  font-weight: 500;
+  transition: color 0.15s ease;
+}
+
+li.commentElement .actions a:hover {
+  color: #5C6AE2 !important;
+}
+
+li.commentElement .actions a[href*="delete"]:hover {
+  color: #ef4444 !important;
+}
+
+/* form comment */
+
+form#addComment p {
+  margin: 0 0 14px 0 !important;
+}
+
+form#addComment label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+form#addComment input[type="text"],
+form#addComment textarea {
+  width: 100% !important;
+  box-sizing: border-box !important;
+  padding: 12px 16px !important;
+  background-color: #f1f5f9 !important;
+  border: none !important;
+  border-radius: 10px !important;
+  font-size: 0.9rem !important;
+  color: #334155 !important;
+  font-family: inherit;
+  transition: background-color 0.2s ease;
+}
+
+form#addComment input[type="text"]:focus,
+form#addComment textarea:focus {
+  background-color: #e2e8f0 !important;
+  outline: none;
+}
+
+
+form#addComment p:last-child {
+  text-align: right !important;
+  margin-bottom: 0 !important;
+}
+
+form#addComment input[type="submit"] {
+  background-color: #f1f5f9 !important;
+  color: #1e293b !important;
+  font-weight: 600 !important;
+  border: none !important;
+  padding: 10px 24px !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  font-size: 0.9rem !important;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+form#addComment input[type="submit"]:hover {
+  background-color: #e2e8f0 !important;
+}
+
+form#addComment input[type="submit"]:active {
+  transform: scale(0.98);
+}
+
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden !important;
+  }
+
+  #content.content {
+    padding: 20px 15px !important;
+  }
+
+  .macadam-photos-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active.view-grid,
+  .macadam-main-grid:not(.view-list) {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .photo-thumb-img {
+    height: 90px !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active.view-grid
+    .macadam-album-thumbs,
+  .macadam-main-grid:not(.view-list) .macadam-album-thumbs {
+    height: 110px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active .macadam-album-card {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+  .macadam-albums-container.macadam-main-grid-active .macadam-album-thumbs {
+    min-width: 0 !important;
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid #c1c1c1 !important;
+  }
+
+  .macadam-photo-card,
+  .macadam-photo-infos,
+  .macadam-album-card,
+  .macadam-album-infos,
+  .macadam-album-header,
+  .macadam-photo-text {
+    min-width: 0 !important;
+  }
+
+  .macadam-picture-container {
+    padding-right: 0 !important;
+    flex-direction: column !important;
+  }
+  .macadam-picture-sidebar {
+    position: relative !important;
+    width: 100% !important;
+    height: auto !important;
+    border-left: none !important;
+    border-top: 1px solid #e2e8f0 !important;
+  }
+
+  .macadam-carousel-strip {
+    justify-content: flex-start !important;
+    overflow-x: auto !important;
+  }
+
+  .macadam-index-bar {
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+  }
+
+  .album-meta,
+  .album-title {
+    font-size: 12px !important;
+  }
+
+  .photo-meta,
+  .photo-title {
+    font-size: 10px !important;
+  }
+
+  .macadam-photo-infos {
+    padding: 5px !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active.view-grid
+    .macadam-album-infos {
+    padding: 5px 9px !important;
+  }
+
+  .photo-actions-trigger {
+    margin-top: 4px !important;
+    margin-right: -9px !important;
+  }
+
+  .macadam-breadcrumb-zone i {
+    margin-right: 0px !important;
+  }
+
+  #breadcrumb h2 {
+    font-size: 18px !important;
+    font-weight: 400 !important;
+    padding: 0 !important;
+    padding-left: 3px !important;
+  }
+
+  .macadam-index-bar {
+    padding: 0px !important;
+    margin: 0 0 30px !important;
+  }
+
+  .macadam-photos-grid-title {
+    margin-top: 0 !important;
+  }
+
+  .macadam-photos-grid-title-al {
+    margin-top: -10px !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active.view-grid
+    .album-actions-trigger {
+    margin-top: 8px !important;
+  }
+
+  .macadam-header-content {
+    padding: 0px 25px !important;
+    gap: 40px !important;
+  }
+
+  .macadam-header-banner {
+    align-items: end !important;
+    padding-bottom: 25px !important;
+  }
+}
