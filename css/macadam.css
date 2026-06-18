@@ -1251,6 +1251,10 @@ li.commentElement .description {
   width: 100% !important;
 }
 
+.description .actions{
+  float: unset !important;
+}
+
 li.commentElement .commentAuthor {
   font-weight: 600 !important;
   color: #1e293b !important;
@@ -1260,8 +1264,12 @@ li.commentElement .commentAuthor {
 }
 
 li.commentElement .commentAuthor a {
-  color: #1e293b !important;
+  color: black !important;
   text-decoration: none !important;
+}
+
+li.commentElement .commentEmail a{
+  color: black !important;
 }
 
 li.commentElement .commentDate {
@@ -1293,12 +1301,11 @@ li.commentElement .actions {
   gap: 12px;
   margin-top: 10px;
   font-size: 0.8rem !important;
-  border-top: 1px solid #edf2f7;
   padding-top: 8px;
 }
 
 li.commentElement .actions a {
-  color: #64748b !important;
+  /* color: #64748b !important; */
   text-decoration: none !important;
   font-weight: 500;
   transition: color 0.15s ease;
