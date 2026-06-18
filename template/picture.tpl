@@ -321,9 +321,15 @@
         <div id="macadam-sidebar-comments-view" style="display: none;">
           <div id="comments">
             {if isset($COMMENT_COUNT)}
-              <h3>{$COMMENT_COUNT|@translate_dec:'%d comment':'%d comments'}</h3>
+              <div class="comments-title-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h3 style="margin: 0;">{$COMMENT_COUNT|@translate_dec:'%d comment':'%d comments'}</h3>
+                {if isset($comment_add)}
+                  <button type="button" id="toggle-comment-form" class="icon-plus" style="background: none; border: none; cursor: pointer; font-size: 1.1rem; padding: 5px; color: #1e293b; transition: transform 0.2s ease; display: flex; align-items: center; justify-content: center;"></button>
+                {/if}
+              </div>
+
               {if isset($comment_add)}
-                <div id="commentAdd">
+                <div id="commentAdd" style="display: none; margin-bottom: 20px;">
                   <form method="post" action="{$comment_add.F_ACTION}" id="addComment">
                     {if $comment_add.SHOW_AUTHOR}
                       <p><label for="author">{'Author'|@translate}:</label>
@@ -345,13 +351,14 @@
                   </form>
                 </div>
               {/if}
-              {if isset($comments)}
-                <div id="pictureCommentList">
-                  <div class="comments-list-wrapper">
+
+              <div id="pictureCommentList">
+                <div class="comments-list-wrapper">
+                  {if isset($COMMENT_LIST)}
                     {$COMMENT_LIST}
-                  </div>
+                  {/if}
                 </div>
-              {/if}
+              </div>
             {/if}
           </div>
         </div>
@@ -382,6 +389,22 @@
         tabInfo.classList.remove('active');
         viewInfo.style.display = 'none';
         viewComments.style.display = 'block';
+      });
+    }
+
+    const toggleBtn = document.getElementById('toggle-comment-form');
+    const commentForm = document.getElementById('commentAdd');
+
+    if (toggleBtn && commentForm) {
+      toggleBtn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (commentForm.style.display === 'none' || commentForm.style.display === '') {
+          commentForm.style.display = 'block';
+          toggleBtn.style.transform = 'rotate(45deg)';
+        } else {
+          commentForm.style.display = 'none';
+          toggleBtn.style.transform = 'rotate(0deg)';
+        }
       });
     }
   });
