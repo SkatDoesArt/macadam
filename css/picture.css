@@ -497,7 +497,6 @@ ul.macadam-info-list li i.icon-eye {
 }
 
 #commentAdd {
-  display: block !important;
   width: 100% !important;
   box-sizing: border-box !important;
   order: 2 !important;
