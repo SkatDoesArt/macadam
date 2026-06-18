@@ -289,7 +289,7 @@
               toggleBtn.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
                   e.preventDefault();
-                  
+
                   if (container.classList.contains('mobile-active')) {
                     container.classList.remove('mobile-active');
                     document.body.style.overflow = '';
@@ -358,6 +358,10 @@
             <i class="search-icon icon-lens"></i>
             <input type="text" name="q" placeholder="Search" autocomplete="off">
           </form>
+
+          <span class="fullscreen-icon-container" id="macadam-fullscreen-toggle" title="Plein écran">
+            <i class="icon-enter-fullscreen"></i>
+          </span>
         </div>
 
       </div>

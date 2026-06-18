@@ -23,7 +23,7 @@
   align-items: center;
   gap: 20px;
   width: 100%;
-  max-width: 600px;
+  max-width: 700px;
   padding: 0 20px;
   box-sizing: border-box;
   z-index: 2;
@@ -47,7 +47,20 @@
 .macadam-header-search {
   position: relative;
   width: 100%;
-  max-width: 450px;
+  /* max-width: 733px; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.fullscreen-icon-container i{
+  font-size: 20px;
+}
+
+.fullscreen-icon-container i:hover{
+  color: var(--menu-icon-hover) !important;
+  cursor: pointer;
 }
 
 .macadam-header-search form {
@@ -55,6 +68,7 @@
   padding: 0;
   display: flex;
   align-items: center;
+  min-width: 468px;
 }
 
 .macadam-header-search .search-icon {
