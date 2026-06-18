@@ -1,0 +1,173 @@
+/* thumbnails */
+
+.macadam-photos-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 24px;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.macadam-photos-grid-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #c1c1c1;
+  max-width: 1100px;
+  margin: 15px auto;
+  text-align: start;
+  padding-top: 20px;
+  border-top: 1px solid #c1c1c1;
+}
+
+.macadam-photos-grid-title-al {
+  font-family: "Open Sans", sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #c1c1c1;
+  max-width: 1100px;
+  margin: -30px auto 15px;
+  text-align: start;
+}
+
+.macadam-photo-card {
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  border: 1px solid #c1c1c1;
+  text-decoration: none !important;
+  color: inherit;
+}
+
+.macadam-photo-card:hover {
+  border: 1px solid #c1c1c1;
+}
+
+.macadam-photo-link {
+  width: 100%;
+  display: block;
+  overflow: hidden;
+  background-color: #f6f7ff;
+}
+
+.photo-thumb-img {
+  width: 100%;
+  height: 165px;
+  border-bottom: 1px solid #c1c1c1;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.macadam-photo-infos {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 11px;
+  background-color: #ffffff;
+}
+
+.macadam-photo-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  overflow: hidden;
+  min-width: 0;
+}
+
+.photo-title {
+  margin: 30px 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #3c3c3c;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+}
+
+.imageComment {
+  text-align: left;
+  font-size: 12px;
+  padding: 10px 10px;
+  line-height: 1.4;
+}
+
+.photo-meta {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #7e7e7e;
+  text-align: start;
+  width: unset;
+}
+
+.photo-actions-trigger {
+  cursor: pointer;
+  line-height: 1;
+  margin-top: 10px;
+  margin-right: -2px;
+}
+
+.photo-actions-trigger i {
+  font-size: 16px;
+  color: var(--menu-icon);
+  transition: color 0.3s ease;
+}
+
+.photo-actions-trigger i:hover {
+  color: var(--menu-icon-hover);
+}
+
+@media (max-width: 768px) {
+  .macadam-photos-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .photo-thumb-img {
+    height: 90px !important;
+  }
+
+  .macadam-photo-card,
+  .macadam-photo-infos,
+  .macadam-photo-text {
+    min-width: 0 !important;
+  }
+
+  .photo-meta,
+  .photo-title {
+    font-size: 10px !important;
+  }
+
+  .macadam-photo-infos {
+    padding: 5px !important;
+  }
+
+  .photo-actions-trigger {
+    margin-top: 4px !important;
+    margin-right: -9px !important;
+  }
+
+  .macadam-photos-grid-title {
+    margin-top: 0 !important;
+  }
+
+  .macadam-photos-grid-title-al {
+    margin-top: -10px !important;
+  }
+}

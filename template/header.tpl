@@ -53,6 +53,10 @@
               {* Import Fontello CSS *}
               {combine_css path="themes/macadam/css/fontello/css/fontello.css" order=-11}
               {combine_css path="themes/macadam/css/macadam.css" order=-10}
+              {combine_css path="themes/macadam/css/album.css" order=-10}
+              {combine_css path="themes/macadam/css/thumbnail.css" order=-10}
+              {combine_css path="themes/macadam/css/picture.css" order=-10}
+              {combine_css path="themes/macadam/css/calendar.css" order=-10}
             {/if}
           {/if}
           {if !empty($theme.local_head)}

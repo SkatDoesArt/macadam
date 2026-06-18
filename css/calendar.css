@@ -1,0 +1,179 @@
+/* calendar */
+
+.macadam-calendar-wrapper {
+  font-family: system-ui, -apple-system, sans-serif;
+  color: #1e293b;
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 12px;
+}
+
+.macadam-calendar-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.cal-select-sort {
+  padding: 6px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  background-color: #ffffff;
+  font-size: 13px;
+  color: #334155;
+  cursor: pointer;
+}
+
+.cal-date-picker-zone {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.cal-nav-arrow {
+  text-decoration: none;
+  color: #334155;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 4px 8px;
+  transition: opacity 0.2s;
+}
+
+.cal-nav-arrow:hover {
+  opacity: 0.6;
+}
+
+.cal-current-date {
+  font-size: 16px;
+  text-transform: capitalize;
+  color: #1e293b;
+}
+
+.cal-view-modes {
+  display: flex;
+  background: #e2e8f0;
+  padding: 4px;
+  border-radius: 8px;
+  gap: 4px;
+}
+
+.cal-btn-mode {
+  padding: 6px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  color: #64748b;
+  transition: all 0.2s;
+}
+
+.cal-btn-mode.active {
+  background: #ffffff;
+  color: #1e293b;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.macadam-calendar-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.macadam-calendar-table th {
+  background: #f1f5f9;
+  padding: 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cal-day-cell {
+  width: 14.28%;
+  height: 120px;
+  vertical-align: top;
+  border: 1px solid #e2e8f0;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.cal-day-cell.outside-month {
+  background-color: #f8fafc;
+}
+
+.cal-day-cell .cell-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.cal-day-cell .day-number {
+  font-size: 12px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+.cal-day-cell.has-photos .day-number {
+  color: #1e293b;
+  font-weight: 600;
+}
+
+.photos-badge {
+  background-color: #3b5284;
+  color: #ffffff;
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cell-content {
+  height: calc(100% - 24px);
+  display: flex;
+  align-items: flex-end;
+}
+
+.calendar-thumb-link {
+  display: block;
+  width: 100%;
+  text-decoration: none;
+}
+
+.thumb-preview-stack {
+  display: flex;
+  gap: 6px;
+}
+
+.color-block {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+}
+
+.block-orange {
+  background-color: #e26d43;
+}
+.block-beige {
+  background-color: #fcd3a1;
+}
+.block-dark {
+  background-color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plus-icon {
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1;
+}

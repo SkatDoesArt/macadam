@@ -1,0 +1,277 @@
+/* Albums card */
+
+.macadam-albums-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.macadam-album-card {
+  display: flex;
+  background: #ffffff;
+  border: 1px solid #c1c1c1;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 200px;
+  cursor: pointer;
+}
+
+.macadam-album-thumbs {
+  display: flex;
+  width: 240px;
+  height: 100%;
+  text-decoration: none !important;
+  flex-shrink: 0;
+}
+
+.main-thumb-container {
+  flex: 2;
+  height: 100%;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.macadam-album-thumbs .main-thumb,
+.macadam-album-thumbs .no-thumb-placeholder {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #f7d6d6;
+}
+
+.sub-thumbs-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.thumb-sub-block {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  min-height: 0;
+  transition: opacity 0.2s ease;
+}
+
+.thumb-sub-block.sub-orange {
+  background-color: #f4a261;
+}
+
+.thumb-sub-block.sub-beige {
+  background-color: #e9c46a;
+}
+
+.macadam-album-infos {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: 20px 24px;
+  position: relative;
+  overflow: hidden;
+}
+
+.macadam-album-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 34px;
+}
+
+.album-title {
+  margin-bottom: 5px;
+  margin-top: 0;
+  font-family: "Open Sans", sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 100%;
+  letter-spacing: 0;
+}
+
+.album-title a {
+  color: #3c3c3c !important;
+  text-decoration: none !important;
+}
+
+.album-meta {
+  font-family: "Open Sans", sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #7e7e7e;
+}
+
+.album-actions-trigger {
+  cursor: pointer;
+  line-height: 1;
+  margin-right: -2px;
+}
+
+.album-description {
+  font-family: "Open Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 100%;
+  letter-spacing: 0;
+  color: #7e7e7e;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.album-description.empty-desc {
+  font-style: italic;
+}
+
+.album-footer-icon {
+  position: absolute;
+  right: 24px;
+  bottom: 34px;
+  opacity: 0.8;
+}
+
+.album-footer-icon .album-sub-toggle i,
+.album-actions-trigger i {
+  font-size: 16px;
+  transition: color 0.3s ease;
+  color: var(--menu-icon);
+}
+
+.album-footer-icon .album-sub-toggle i:hover,
+.album-actions-trigger i:hover {
+  color: var(--menu-icon-hover);
+}
+
+.sub-albums-container {
+  display: none;
+}
+
+/* list mode */
+
+.macadam-albums-container.macadam-main-grid-active {
+  display: flex;
+  flex-direction: column;
+  max-width: 1100px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.macadam-albums-container.macadam-main-grid-active .macadam-album-card {
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  background: #ffffff;
+  overflow: hidden;
+  width: 100%;
+  margin-bottom: 24px;
+}
+
+.macadam-albums-container.macadam-main-grid-active .macadam-album-thumbs {
+  min-width: 280px;
+  height: 100%;
+  flex-shrink: 0;
+  display: flex;
+  border-right: 1px solid #c1c1c1;
+}
+
+.macadam-albums-container.macadam-main-grid-active .macadam-album-infos {
+  display: flex;
+  flex-direction: column;
+  padding: 34px 24px 34px 34px;
+  flex-grow: 1;
+}
+
+.macadam-albums-container.macadam-main-grid-active .album-description-zone {
+  display: block;
+}
+
+/* grid mode */
+
+.macadam-albums-container.macadam-main-grid-active.view-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  gap: 24px;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-card {
+  flex-direction: column !important;
+  height: auto !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-thumbs {
+  width: 100% !important;
+  height: 165px !important;
+  border-bottom: 1px solid #c1c1c1;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-infos {
+  padding: 11px !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .album-description-zone {
+  display: none !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .album-actions-trigger {
+  margin-top: 10px !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-header {
+  margin-bottom: 0px !important;
+}
+
+.macadam-albums-container.macadam-main-grid-active.view-grid .album-footer-icon {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .macadam-albums-container.macadam-main-grid-active.view-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 10px !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-thumbs,
+  .macadam-main-grid:not(.view-list) .macadam-album-thumbs {
+    height: 110px !important;
+    min-width: 0 !important;
+    width: 100% !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active .macadam-album-card {
+    flex-direction: column !important;
+    height: auto !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active .macadam-album-thumbs {
+    min-width: 0 !important;
+    width: 100% !important;
+    border-right: none !important;
+    border-bottom: 1px solid #c1c1c1 !important;
+  }
+
+  .macadam-album-card,
+  .macadam-album-infos,
+  .macadam-album-header {
+    min-width: 0 !important;
+  }
+
+  .album-meta,
+  .album-title {
+    font-size: 12px !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active.view-grid .macadam-album-infos {
+    padding: 5px 9px !important;
+  }
+
+  .macadam-albums-container.macadam-main-grid-active.view-grid .album-actions-trigger {
+    margin-top: 8px !important;
+  }
+}
