@@ -284,32 +284,28 @@
               }
             });
 
-            // Ouverture sur mobile
             var toggleBtn = container.querySelector('.sidebar-icon-link-drop');
             if (toggleBtn) {
               toggleBtn.addEventListener('click', function(e) {
                 if (window.innerWidth <= 768) {
                   e.preventDefault();
                   
-                  // Si ce menu est déjà ouvert, on le ferme
                   if (container.classList.contains('mobile-active')) {
                     container.classList.remove('mobile-active');
                     document.body.style.overflow = '';
                     return;
                   }
 
-                  // Sinon on ferme d'abord tous les autres
                   document.querySelectorAll('.sidebar-dropdown-container.mobile-active').forEach(function(activeContainer) {
                     activeContainer.classList.remove('mobile-active');
                   });
 
                   container.classList.add('mobile-active');
-                  document.body.style.overflow = 'hidden'; // Bloque le scroll arrière
+                  document.body.style.overflow = 'hidden';
                 }
               });
             }
 
-            // Fermeture sur mobile
             var closeBtn = container.querySelector('.mobile-close-btn');
             if (closeBtn) {
               closeBtn.addEventListener('click', function(e) {
