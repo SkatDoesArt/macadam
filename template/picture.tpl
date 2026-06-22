@@ -425,6 +425,7 @@
     
     const arrowLeft = document.querySelector('.macadam-nav-arrow.arrow-left:not(.disabled)');
     const arrowRight = document.querySelector('.macadam-nav-arrow.arrow-right:not(.disabled)');
+    
     function navigateToPrevious() {
       if (arrowLeft) {
         if (document.fullscreenElement) {
@@ -472,7 +473,6 @@
     }
 
     document.addEventListener('keydown', function(e) {
-
       if (document.fullscreenElement && container.classList.contains('macadam-in-fullscreen')) {
         if (e.key === 'ArrowLeft') {
           e.preventDefault();
@@ -486,6 +486,7 @@
         }
       }
     });
+
     document.addEventListener('fullscreenchange', function() {
       if (document.fullscreenElement) {
         container.classList.add('macadam-in-fullscreen');
@@ -498,8 +499,8 @@
       }
     });
 
-    if (sessionStorage.getItem('macadam_persist_fullscreen') === 'true' && container) {
-
+    function reenterFullscreen() {
+      if (sessionStorage.getItem('macadam_persist_fullscreen') === 'true' && container) {
         container.requestFullscreen()
           .then(() => {
             sessionStorage.removeItem('macadam_persist_fullscreen');
@@ -508,13 +509,25 @@
         
         document.removeEventListener('click', reenterFullscreen);
         document.removeEventListener('keydown', reenterFullscreen);
-      };
+      }
+    }
 
+    if (sessionStorage.getItem('macadam_persist_fullscreen') === 'true') {
+      document.addEventListener('click', reenterFullscreen);
       document.addEventListener('keydown', reenterFullscreen);
-    
       reenterFullscreen();
     }
 
-  );
+    const activeThumb = document.querySelector('.macadam-carousel-strip .strip-thumb-item.active');
+    if (activeThumb) {
+      setTimeout(() => {
+        activeThumb.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        });
+      }, 100);
+    }
+  });
 {/literal}
 {/footer_script}
