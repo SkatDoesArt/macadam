@@ -85,6 +85,21 @@
 
             <div class="album-actions-trigger">
               <i class="icon-three-dot"></i>
+              
+              <div class="album-dropdown-menu">
+                <a href="#" class="dropdown-item btn-share-album">
+                  <i class="icon-share"></i>
+                  <span>{'Share album'|@translate}</span>
+                </a>
+                <a href="#" class="dropdown-item btn-edit-album">
+                  <i class="icon-edit"></i>
+                  <span>{'Edit album'|@translate}</span>
+                </a>
+                <a href="#" class="dropdown-item btn-add-photos">
+                  <i class="icon-add"></i>
+                  <span>{'Add photos to the album'|@translate}</span>
+                </a>
+              </div>
             </div>
           </div>
 
@@ -126,6 +141,7 @@
 
 {footer_script}
 jQuery(document).ready(function($) {
+  
   $(document).on('click', '.album-sub-toggle', function(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -136,5 +152,37 @@ jQuery(document).ready(function($) {
     $(this).toggleClass('open');
     $subContainer.slideToggle(250);
   });
+  $(document).on('click', '.album-actions-trigger', function(e) {
+    e.stopPropagation(); // Empêche de fermer le menu immédiatement au clic
+    
+    var $currentMenu = $(this).children('.album-dropdown-menu');
+    $('.album-dropdown-menu').not($currentMenu).removeClass('is-active');
+    
+    $currentMenu.toggleClass('is-active');
+  });
+
+  $(document).on('click', function() {
+    $('.album-dropdown-menu').removeClass('is-active');
+  });
+
+  // 4. Exemple d'interception des clics sur les actions du menu
+  $(document).on('click', '.album-dropdown-menu .dropdown-item', function(e) {
+    e.preventDefault();
+    e.stopPropagation(); 
+    
+    var $card = $(this).closest('.macadam-album-card');
+    var albumId = $card.data('id');
+    
+    if ($(this).hasClass('btn-share-album')) {
+      console.log("Partager l'album ID : " + albumId);
+    } else if ($(this).hasClass('btn-edit-album')) {
+      console.log("Modifier l'album ID : " + albumId);
+    } else if ($(this).hasClass('btn-add-photos')) {
+      console.log("Ajouter des photos à l'album ID : " + albumId);
+    }
+    
+    $('.album-dropdown-menu').removeClass('is-active');
+  });
+
 });
 {/footer_script}

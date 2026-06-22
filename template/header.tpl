@@ -228,7 +228,7 @@
               {/if}
               <li>
                 <div class="tag-item-row">
-                  <a href="{$U_PHOTO_ADMIN|default:$U_PROFILE|default:"`$ROOT_URL`profile.php"}">{'Customize'|translate}</a>
+                  <a href="{$U_PHOTO_ADMIN|default:$U_PROFILE|default:" `$ROOT_URL`profile.php"}">{'Customize'|translate}</a>
                 </div>
               </li>
               <li>
@@ -361,9 +361,12 @@
             <input type="text" name="q" placeholder="Search" autocomplete="off">
           </form>
 
-          <span class="fullscreen-icon-container" id="macadam-fullscreen-toggle" title="Plein écran">
-            <i class="icon-enter-fullscreen"></i>
-          </span>
+          {if $BODY_ID == 'thePicturePage'}
+            <span class="fullscreen-icon-container" id="macadam-fullscreen-toggle" title="Plein écran">
+              <i class="icon-enter-fullscreen"></i>
+            </span>
+          {/if}
+
         </div>
 
       </div>
