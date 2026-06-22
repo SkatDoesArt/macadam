@@ -24,8 +24,9 @@
         </div>
         <div class="macadam-actions-zone">
           <div class="macadam-dropdown-actions">
+
             <button class="dropdown-trigger-btn" title="Options">
-              <i class=" icon-wheel"></i>
+              <i class="icon-wheel"></i>
             </button>
 
             <ul class="dropdown-menu-list">
@@ -168,6 +169,11 @@
       </div>
 
       <div class="macadam-main-photo-stage">
+        <button id="macadam-fullscreen-close-btn" title="Quitter le plein écran">
+          <i class="icon-exit-fullscreen"></i>
+          <span>ESC</span>
+        </button>
+
         {if isset($previous)}
           <a class="macadam-nav-arrow arrow-left" href="{$previous.U_IMG}" title="{'Previous'|@translate}">
             <span>‹</span>
@@ -395,7 +401,6 @@
       });
     }
 
-
     const toggleBtn = document.getElementById('toggle-comment-form');
     const commentForm = document.getElementById('commentAdd');
 
@@ -411,6 +416,105 @@
         }
       });
     }
-  });
+
+    const fsToggle = document.getElementById('macadam-fullscreen-toggle');
+    const fsCloseBtn = document.getElementById('macadam-fullscreen-close-btn');
+    const container = document.querySelector('.macadam-picture-container');
+    const photoDis = document.querySelector('.macadam-photo-display');
+    const navArrowFullscreen = document.querySelectorAll('.macadam-nav-arrow');
+    
+    const arrowLeft = document.querySelector('.macadam-nav-arrow.arrow-left:not(.disabled)');
+    const arrowRight = document.querySelector('.macadam-nav-arrow.arrow-right:not(.disabled)');
+    function navigateToPrevious() {
+      if (arrowLeft) {
+        if (document.fullscreenElement) {
+          sessionStorage.setItem('macadam_persist_fullscreen', 'true');
+        }
+        arrowLeft.click();
+      }
+    }
+
+    function navigateToNext() {
+      if (arrowRight) {
+        if (document.fullscreenElement) {
+          sessionStorage.setItem('macadam_persist_fullscreen', 'true');
+        }
+        arrowRight.click();
+      }
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        container.requestFullscreen()
+          .catch(err => console.error("Erreur d'activation : " + err.message));
+      } else {
+        sessionStorage.removeItem('macadam_persist_fullscreen');
+        document.exitFullscreen();
+      }
+    }
+
+    if (fsToggle && container) {
+      fsToggle.addEventListener('click', toggleFullscreen);
+    }
+    if (fsCloseBtn) {
+      fsCloseBtn.addEventListener('click', toggleFullscreen);
+    }
+
+    if (arrowLeft) {
+      arrowLeft.addEventListener('click', function() {
+        if (document.fullscreenElement) sessionStorage.setItem('macadam_persist_fullscreen', 'true');
+      });
+    }
+    if (arrowRight) {
+      arrowRight.addEventListener('click', function() {
+        if (document.fullscreenElement) sessionStorage.setItem('macadam_persist_fullscreen', 'true');
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+
+      if (document.fullscreenElement && container.classList.contains('macadam-in-fullscreen')) {
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          navigateToPrevious();
+        } else if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          navigateToNext();
+        } else if (e.key === 'Escape') {
+          e.preventDefault();
+          toggleFullscreen();
+        }
+      }
+    });
+    document.addEventListener('fullscreenchange', function() {
+      if (document.fullscreenElement) {
+        container.classList.add('macadam-in-fullscreen');
+        photoDis.classList.add('display-in-fullscreen');
+        navArrowFullscreen.forEach(arrow => arrow.classList.add('arrow-fullscreen'));
+      } else {
+        container.classList.remove('macadam-in-fullscreen');
+        photoDis.classList.remove('display-in-fullscreen');
+        navArrowFullscreen.forEach(arrow => arrow.classList.remove('arrow-fullscreen'));
+      }
+    });
+
+    if (sessionStorage.getItem('macadam_persist_fullscreen') === 'true' && container) {
+
+        container.requestFullscreen()
+          .then(() => {
+            sessionStorage.removeItem('macadam_persist_fullscreen');
+          })
+          .catch(err => console.log("Réactivation en attente d'interaction :", err.message));
+        
+        document.removeEventListener('click', reenterFullscreen);
+        document.removeEventListener('keydown', reenterFullscreen);
+      };
+
+      document.addEventListener('keydown', reenterFullscreen);
+    
+      reenterFullscreen();
+    }
+
+  );
 {/literal}
 {/footer_script}

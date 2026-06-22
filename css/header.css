@@ -50,7 +50,7 @@
   /* max-width: 733px; */
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
 }
 
@@ -73,7 +73,7 @@
 
 .macadam-header-search .search-icon {
   position: absolute;
-  left: 10px;
+  left: 10%;
   top: 30%;
   font-size: 16px;
   color: #777777;
