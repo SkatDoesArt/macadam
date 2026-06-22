@@ -204,24 +204,42 @@ function macadam_get_picture_thumbnails()
   include_once(PHPWG_ROOT_PATH . 'include/functions_picture.inc.php');
 
   $macadam_thumbs = array();
-  $current_cat_id = (int) $page['category']['id'];
+
+  // STEP 1: Fetch raw metadata for all images belonging to the current context ($page['items'])
   $query = '
-SELECT i.id, i.name, i.file, i.path
-  FROM ' . IMAGES_TABLE . ' i
-    INNER JOIN ' . IMAGE_CATEGORY_TABLE . ' ic ON i.id = ic.image_id
-  WHERE ic.category_id = ' . $current_cat_id . '
-  ORDER BY ic.rank ASC, i.id ASC
+SELECT id, name, file, path
+  FROM ' . IMAGES_TABLE . '
+  WHERE id IN (' . implode(',', $page['items']) . ')
 ;';
   $result = pwg_query($query);
-  while ($img = pwg_db_fetch_assoc($result)) {
+  
+  $images_data = array();
+  while ($row = pwg_db_fetch_assoc($result)) {
+    $images_data[$row['id']] = $row;
+  }
+
+  // STEP 2: Map and order derivative thumbnail objects matching Piwigo's native sorted stack
+  foreach ($page['items'] as $img_id) {
+    if (!isset($images_data[$img_id])) continue;
+
+    $img = $images_data[$img_id];
     $url = make_picture_url(array('image_id' => $img['id'], 'category' => $page['category']));
-    $src_image = new SrcImage($img);
-    $derivative = new DerivativeImage(IMG_SQUARE, $src_image);
+    
+    // Safely verify if SrcImage is loaded to prevent premature runtime script termination
+    if (class_exists('SrcImage')) {
+      $src_image = new SrcImage($img);
+      $derivative = new DerivativeImage(IMG_SQUARE, $src_image);
+      $src_url = $derivative->get_url();
+    } else {
+      // Fallback baseline image reference path mapping
+      $src_url = preg_replace('#^./#', '', $img['path']); 
+    }
+
     $macadam_thumbs[] = array(
       'id' => $img['id'],
       'TITLE' => !empty($img['name']) ? $img['name'] : $img['file'],
       'URL' => $url,
-      'SRC' => $derivative->get_url(),
+      'SRC' => $src_url,
     );
   }
 
