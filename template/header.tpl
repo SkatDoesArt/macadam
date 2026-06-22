@@ -214,9 +214,9 @@
 
       {if isset($U_LOGIN_REGISTER)}
         <a href="{$U_LOGIN_REGISTER}" class="sidebar-icon-link" title="{'Login'|translate}"><i class="icon-person"></i></a>
-      {else if isset($U_PROFILE)}
+      {else}
         <div class="sidebar-dropdown-container">
-          <a href="" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Profile'|translate}"><i class="icon-person"></i></a>
+          <a href="#" onclick="return false;" class="sidebar-icon-link sidebar-icon-link-drop" title="{'Profile'|translate}"><i class="icon-person"></i></a>
           <div class="sidebar-dropdown-menu">
             <i class="icon-cross usable-icon mobile-close-btn"></i>
             <div class="dropdown-menu-title">{'Account'|translate}</div>
@@ -227,7 +227,9 @@
                 </li>
               {/if}
               <li>
-                <div class="tag-item-row"><a href="{$U_PROFILE}">{'Customize'|translate}</a></div>
+                <div class="tag-item-row">
+                  <a href="{$U_PHOTO_ADMIN|default:$U_PROFILE|default:"`$ROOT_URL`profile.php"}">{'Customize'|translate}</a>
+                </div>
               </li>
               <li>
                 <div class="tag-item-row"><a href="{$ROOT_URL}profile.php">{'Notifications'|translate}</a></div>
