@@ -25,9 +25,9 @@
     <div class="macadam-actions-zone">
       <ul>
         {if isset($U_MODE_POSTED)}
-          <li><a href="{$U_MODE_POSTED}" title="{'Calendar'|translate}"><i class="icon-calendar"></i></a></li>
+          <li><a href="{$U_MODE_POSTED}&amp;view=month" title="{'Calendar'|translate}"><i class="icon-calendar"></i></a></li>
         {elseif isset($U_MODE_CREATED)}
-          <li><a href="{$U_MODE_CREATED}" title="{'Calendar'|translate}"><i class="icon-calendar"></i></a></li>
+          <li><a href="{$U_MODE_CREATED}&amp;view=month" title="{'Calendar'|translate}"><i class="icon-calendar"></i></a></li>
         {/if}
 
         <li>
@@ -105,7 +105,14 @@
   {/if}
 
   {if isset($FILE_CHRONOLOGY_VIEW)}
+    <div style="display:none" id="macadam-chronology-debug">
+      FILE_CHRONOLOGY_VIEW={$FILE_CHRONOLOGY_VIEW|escape}
+      | U_MODE_POSTED={if isset($U_MODE_POSTED)}{$U_MODE_POSTED|escape}{/if}
+      | U_MODE_CREATED={if isset($U_MODE_CREATED)}{$U_MODE_CREATED|escape}{/if}
+    </div>
     {include file=$FILE_CHRONOLOGY_VIEW}
+  {else}
+    <div style="display:none" id="macadam-chronology-debug">FILE_CHRONOLOGY_VIEW=unset | U_MODE_POSTED={if isset($U_MODE_POSTED)}{$U_MODE_POSTED|escape}{/if} | U_MODE_CREATED={if isset($U_MODE_CREATED)}{$U_MODE_CREATED|escape}{/if}</div>
   {/if}
 
   {if !empty($CONTENT_DESCRIPTION)}

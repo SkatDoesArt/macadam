@@ -22,6 +22,39 @@ add_event_handler('loc_begin_index', 'macadam_register_smarty_functions');
 add_event_handler('loc_begin_page_header', 'macadam_register_smarty_functions');
 add_event_handler('loc_end_index_thumbnails', 'macadam_get_thumbnail_details');
 
+add_event_handler('loc_begin_page_header', 'macadam_chronology_month_header_fallback');
+
+function macadam_chronology_month_header_fallback(){
+  global $template, $page;
+
+  // Only when we are on chronology month calendar context (smarty var is used in template/month_calendar.tpl)
+  if (!isset($page['chronology']) && empty($page)) {
+    return;
+  }
+
+  // Try to get month/year from GET (when provided)
+  $month = isset($_GET['month']) ? intval($_GET['month']) : 0;
+  $year  = isset($_GET['year']) ? intval($_GET['year']) : 0;
+
+  // If not provided, fallback to current server month/year
+  if ($month < 1 || $month > 12) {
+    $month = intval(date('n'));
+  }
+  if ($year < 1) {
+    $year = intval(date('Y'));
+  }
+
+  // Set only if Chronology didn't already provide them
+  // (we don't have direct access to $chronology_calendar here, so we assign extra vars used by template fallbacks)
+  $smarty = method_exists($template, 'get_smarty') ? $template->get_smarty() : $template->smarty;
+  if (!$smarty) return;
+
+  $month_name = date('F', mktime(0,0,0,$month,1,$year));
+
+  $template->assign('macadam_cal_fallback_month_name', $month_name);
+  $template->assign('macadam_cal_fallback_year', (string)$year);
+}
+
 function macadam_register_smarty_functions() {
   global $template;
   
