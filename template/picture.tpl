@@ -208,12 +208,14 @@
     </div>
 
     <aside class="macadam-picture-sidebar">
-      <div class="sidebar-tabs">
-        <button class="tab-btn active" id="tabInfoLink" title="Informations"><i class="icon-i"></i></button>
-        <button class="tab-btn" id="tabCommentsLink" title="Commentaires"><i class="icon-discuss"></i>
-          {if isset($COMMENT_COUNT)}({$COMMENT_COUNT}){/if}
-        </button>
-      </div>
+      {if isset($COMMENT_COUNT)}
+        <div class="sidebar-tabs">
+          <button class="tab-btn active" id="tabInfoLink" title="Informations"><i class="icon-i"></i></button>
+          <button class="tab-btn" id="tabCommentsLink" title="Commentaires"><i class="icon-discuss"></i>
+            ({$COMMENT_COUNT})
+          </button>
+        </div>
+      {/if}
 
       <div class="sidebar-scrollable-content">
         <div id="macadam-sidebar-info-view">
@@ -318,50 +320,50 @@
           {/if}
         </div>
 
-        <div id="macadam-sidebar-comments-view" style="display: none;">
-          <div id="comments">
-            {if isset($COMMENT_COUNT)}
-              <div class="comments-title-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                <h3 style="margin: 0;">{$COMMENT_COUNT|@translate_dec:'%d comment':'%d comments'}</h3>
-                {if isset($comment_add)}
-                  <button type="button" id="toggle-comment-form" class="icon-plus" style="background: none; border: none; cursor: pointer; font-size: 1.1rem; padding: 5px; color: #1e293b; transition: transform 0.2s ease; display: flex; align-items: center; justify-content: center;"></button>
-                {/if}
-              </div>
-
-              {if isset($comment_add)}
-                <div id="commentAdd" style="display: none; margin-bottom: 20px;">
-                  <form method="post" action="{$comment_add.F_ACTION}" id="addComment">
-                    {if $comment_add.SHOW_AUTHOR}
-                      <p><label for="author">{'Author'|@translate}:</label>
-                        <input type="text" name="author" id="author" value="{$comment_add.AUTHOR}">
-                      </p>
-                    {/if}
-                    {if $comment_add.SHOW_EMAIL}
-                      <p><label for="email">{'Email address'|@translate}:</label>
-                        <input type="text" name="email" id="email" value="{$comment_add.EMAIL}">
-                      </p>
-                    {/if}
-                    <p><label for="contentid">{'Comment'|@translate}:</label>
-                      <textarea name="content" id="contentid" rows="4">{$comment_add.CONTENT}</textarea>
-                    </p>
-                    <p>
-                      <input type="hidden" name="key" value="{$comment_add.KEY}">
-                      <input type="submit" class="submit-comment-btn" value="{'Submit'|@translate}">
-                    </p>
-                  </form>
-                </div>
-              {/if}
-
-              <div id="pictureCommentList">
-                <div class="comments-list-wrapper">
-                  {if isset($COMMENT_LIST)}
-                    {$COMMENT_LIST}
+        {if isset($COMMENT_COUNT)}
+          <div id="macadam-sidebar-comments-view" style="display: none;">
+            <div id="comments">
+                <div class="comments-title-bar" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                  <h3 style="margin: 0;">{$COMMENT_COUNT|@translate_dec:'%d comment':'%d comments'}</h3>
+                  {if isset($comment_add)}
+                    <button type="button" id="toggle-comment-form" class="icon-plus" style="background: none; border: none; cursor: pointer; font-size: 1.1rem; padding: 5px; color: #1e293b; transition: transform 0.2s ease; display: flex; align-items: center; justify-content: center;"></button>
                   {/if}
                 </div>
-              </div>
-            {/if}
+
+                {if isset($comment_add)}
+                  <div id="commentAdd" style="display: none; margin-bottom: 20px;">
+                    <form method="post" action="{$comment_add.F_ACTION}" id="addComment">
+                      {if $comment_add.SHOW_AUTHOR}
+                        <p><label for="author">{'Author'|@translate}:</label>
+                          <input type="text" name="author" id="author" value="{$comment_add.AUTHOR}">
+                        </p>
+                      {/if}
+                      {if $comment_add.SHOW_EMAIL}
+                        <p><label for="email">{'Email address'|@translate}:</label>
+                          <input type="text" name="email" id="email" value="{$comment_add.EMAIL}">
+                        </p>
+                      {/if}
+                      <p><label for="contentid">{'Comment'|@translate}:</label>
+                        <textarea name="content" id="contentid" rows="4">{$comment_add.CONTENT}</textarea>
+                      </p>
+                      <p>
+                        <input type="hidden" name="key" value="{$comment_add.KEY}">
+                        <input type="submit" class="submit-comment-btn" value="{'Submit'|@translate}">
+                      </p>
+                    </form>
+                  </div>
+                {/if}
+
+                <div id="pictureCommentList">
+                  <div class="comments-list-wrapper">
+                    {if isset($COMMENT_LIST)}
+                      {$COMMENT_LIST}
+                    {/if}
+                  </div>
+                </div>
+            </div>
           </div>
-        </div>
+        {/if}
       </div>
     </aside>
 
@@ -372,6 +374,7 @@
 {footer_script}
 {literal}
   document.addEventListener('DOMContentLoaded', function() {
+
     const tabInfo = document.getElementById('tabInfoLink');
     const tabComments = document.getElementById('tabCommentsLink');
     const viewInfo = document.getElementById('macadam-sidebar-info-view');
@@ -391,6 +394,7 @@
         viewComments.style.display = 'block';
       });
     }
+
 
     const toggleBtn = document.getElementById('toggle-comment-form');
     const commentForm = document.getElementById('commentAdd');
