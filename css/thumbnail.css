@@ -132,6 +132,60 @@
   color: var(--menu-icon-hover);
 }
 
+/* PICTURE POPUP */
+/* 
+.photo-actions-trigger {
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.pic-dropdown-menu {
+  display: none; 
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 100;
+  min-width: 300px;
+  background-color: #ffffff;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 6px 0;
+  margin-top: 5px;
+}
+
+.pic-dropdown-menu.is-active {
+  display: block;
+}
+
+
+.pic-dropdown-menu .dropdown-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 16px;
+  color: #090D31;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.15s ease;
+}
+
+
+.pic-dropdown-menu .dropdown-item:hover {
+  background-color: #f1f5f9;
+  color: #090D31;
+}
+
+
+.pic-dropdown-menu .dropdown-item i {
+  font-size: 1.1rem;
+  color: #090D31;
+  width: 20px;
+  text-align: center;
+} */
+
+
 @media (max-width: 768px) {
   .macadam-photos-grid {
     display: grid !important;
