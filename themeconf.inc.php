@@ -132,6 +132,30 @@ function macadam_get_header_albums() {
     return;
   $GLOBALS['macadam_albums_loaded'] = true;
 
+  // --- ShareAlbum Plugin Verification ---
+  $sharealbum_links = array();
+  $sharealbum_active = false;
+
+  if (defined('SHAREALBUM_PATH')) {
+    $sharealbum_active = true;
+    
+    // Fetch all existing shareable links from ShareAlbum table
+    $query_share = "SELECT cat, code FROM " . SHAREALBUM_TABLE;
+    $result_share = pwg_query($query_share);
+    
+    if ($result_share) {
+      while ($row_share = pwg_db_fetch_assoc($result_share)) {
+        // Generate absolute link using the native plugin helper function
+        $sharealbum_links[$row_share['cat']] = sharealbum_get_shareable_url($row_share['code']);
+      }
+    }
+  }
+
+  $template->assign(array(
+    'SHAREALBUM_ACTIVE' => $sharealbum_active,
+    'SHAREALBUM_LINKS'  => $sharealbum_links,
+  ));
+
   $display_empty = !empty($conf['display_empty_categories']);
   $empty_condition = $display_empty ? '' : ' AND uc.count_images > 0';
 
