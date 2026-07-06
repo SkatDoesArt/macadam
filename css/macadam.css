@@ -175,20 +175,16 @@ BODY {
 }
 
 .dropdown-item-sizes .switchBox {
-  display: none;
-  position: absolute !important;
-  right: 110% !important;
-  margin-right: 10px !important;
+  position: absolute;
+  top: -2px !important;
+  right: 300px !important;
   left: auto !important;
-  top: -10px !important;
-  width: 180px !important;
-  background: #ffffff !important;
-  border: 1px solid #e2e8f0 !important;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08) !important;
-  border-radius: 8px !important;
-  padding: 12px 0 !important;
-  z-index: 10000 !important;
-  font-family: sans-serif;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  padding: 12px;
+  border-radius: 6px;
+  z-index: 1050;
+  white-space: nowrap;
 }
 
 #derivativeSwitchBox .switchBoxTitle,
@@ -206,6 +202,16 @@ BODY {
   font-size: 14px !important;
   transition: background 0.2s ease, color 0.2s ease;
   position: relative;
+}
+/* 
+#derivativeSwitchBox span {
+  display: none !important;
+} */
+
+.index{
+  font-size: 14px !important;
+  position: absolute !important;
+  top: 18px !important;
 }
 
 /* DROPDOWN MENU ALBUMS  */
@@ -260,6 +266,8 @@ BODY {
   /* margin-left: 4% !important;
   margin-right: 4% !important; */
 }
+
+/* TAGS  */
 
 
 @media (max-width: 768px) {

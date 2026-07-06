@@ -60,12 +60,14 @@
               <i class="icon-wheel"></i>
             </a>
             <div class="album-dropdown-menu">
-
+              <i class="icon-arrow-left index"></i>
               {if !empty($image_derivatives)}
                 <div class="dropdown-item-sizes">
                   {strip}
-                    <a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="dropdown-item" rel="nofollow">
-                      <i class="icon-photo-size"></i> <span>{'Photo sizes'|@translate}</span>
+                    <a id="derivativeSwitchLink" title="{'Photo sizes'|@translate}" class="dropdown-item option-with-submenu" rel="nofollow">
+                      
+                      <i class="icon-photo-size"></i>
+                      <span>{'Photo sizes'|@translate}</span>
                     </a>
                     <div id="derivativeSwitchBox" class="switchBox">
                       <div class="switchBoxTitle">{'Photo sizes'|@translate}</div>
@@ -74,7 +76,7 @@
                         {if $image_derivative.SELECTED}
                           <span>&#x2714; </span>{$image_derivative.DISPLAY}
                           {else}
-                          <span style="visibility:hidden">&#x2714; </span><a href="{$image_derivative.URL}" rel="nofollow">{$image_derivative.DISPLAY}</a>
+                          <a href="{$image_derivative.URL}" rel="nofollow">{$image_derivative.DISPLAY}</a>
                         {/if}
                       {/foreach}
                     </div>
@@ -115,7 +117,7 @@
                   <i class="icon-add"></i>
                   <span>{'Add photos to the album'|@translate}</span>
                 </a>
-              {elseif isset($category.id)}
+                {elseif isset($category.id)}
                 <a href="{$ROOT_URL}admin.php?page=photos_add&amp;album={$category.id}" class="dropdown-item btn-add-photos">
                   <i class="icon-add"></i>
                   <span>{'Add photos to the album'|@translate}</span>

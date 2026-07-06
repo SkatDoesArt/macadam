@@ -125,8 +125,9 @@ SELECT DISTINCT i.id, i.path, i.representative_ext, i.date_available
   }
 }
 
-function macadam_get_header_albums() {
-  global $template, $user, $conf;
+function macadam_get_header_albums() 
+{
+  global $template, $user, $conf, $pwg_loaded_plugins;
 
   if (isset($GLOBALS['macadam_albums_loaded']))
     return;
@@ -136,7 +137,7 @@ function macadam_get_header_albums() {
   $sharealbum_links = array();
   $sharealbum_active = false;
 
-  if (defined('SHAREALBUM_PATH')) {
+  if (isset($pwg_loaded_plugins['ShareAlbum'])) {
     $sharealbum_active = true;
     
     // Fetch all existing shareable links from ShareAlbum table

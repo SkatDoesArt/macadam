@@ -194,7 +194,7 @@ jQuery(document).ready(function($) {
         });
       } else {
         console.log("Aucun lien existant pour l'album " + albumId + ". Redirection vers l'administration.");
-        window.location.href = "admin.php?page=plugin-sharealbum";
+        window.location.href = "admin.php?page=plugin-ShareAlbum-albums";
       }
     }
     
