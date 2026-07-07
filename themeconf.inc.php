@@ -157,6 +157,17 @@ function macadam_get_header_albums()
     'SHAREALBUM_LINKS'  => $sharealbum_links,
   ));
 
+  // --- Contact Plugin Verification ---
+  $header_contact = null;
+  if (isset($pwg_loaded_plugins['ContactForm'])) {
+    $header_contact = array(
+      'TITLE' => l10n('Contact'),
+      'NAME'  => l10n('Contact'),
+      'URL'   => get_root_url() . 'index.php?/contact',
+    );
+  }
+  $template->assign('MACADAM_HEADER_CONTACT', $header_contact);
+
   $display_empty = !empty($conf['display_empty_categories']);
   $empty_condition = $display_empty ? '' : ' AND uc.count_images > 0';
 
