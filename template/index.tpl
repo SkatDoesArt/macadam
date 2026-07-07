@@ -161,7 +161,11 @@
       {include file='include/related_tags.inc.tpl'}
     {/if}
   </div>
-
+  <div class="mcs-container column">
+    {if !empty($SEARCH_ID)}
+      {include file='themes/default/template/include/search_filters.inc.tpl'}
+    {/if}
+  </div>
   {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
   {if !empty($no_search_results)}
