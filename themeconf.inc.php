@@ -24,6 +24,9 @@ add_event_handler('loc_end_index_thumbnails', 'macadam_get_thumbnail_details');
 
 add_event_handler('loc_begin_page_header', 'macadam_chronology_month_header_fallback');
 
+add_event_handler('loc_begin_index', 'macadam_toc_section_init');
+add_event_handler('loc_end_index', 'macadam_toc_page');
+
 function macadam_chronology_month_header_fallback(){
   global $template, $page;
 
@@ -355,4 +358,36 @@ SELECT id, file, filesize
   return $tpl_thumbnails;
 }
 
+function macadam_toc_section_init()
+{
+  global $tokens, $page;
+  if (isset($tokens[0]) && $tokens[0] == 'table_of_content')
+  {
+    $page['section'] = 'table_of_content';
+    $page['title'] = 'Table of content';
+    $page['body_id'] = 'theTableOfContentPage';
+    $page['is_external'] = true; 
+    $page['is_homepage'] = false;
+  }
+}
+
+function macadam_toc_page()
+{
+  global $template, $page;
+
+  if (isset($page['section']) && $page['section'] == 'table_of_content')
+  {
+    if (!isset($template->get_template_vars()['MACADAM_HEADER_ALBUMS'])) {
+      macadam_get_header_albums();
+    }
+    
+    $template->assign(array(
+      'CATEGORIES' => array(),
+      'THUMBNAILS' => array(),
+    ));
+
+    $template->set_filename('tableofcontent', 'table_of_content.tpl');
+    $template->assign_var_from_handle('CONTENT', 'tableofcontent');
+  }
+}
 ?>

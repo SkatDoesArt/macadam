@@ -13,7 +13,9 @@
     <div class="macadam-breadcrumb-zone">
       <a href="{$U_HOME}"><i class="icon-home{if $TITLE|strstr:' / '} usable-icon{/if}"></i></a>
       <div id="breadcrumb">
-        {if $TITLE|strstr:' / '}
+        {if isset($page.section) and $page.section == 'table_of_content'}
+          <h2> / {'Table of content'|translate}</h2>
+        {elseif $TITLE|strstr:' / '}
           <h2>
             {$TITLE|regex_replace:"#^.*?(?= / )#":""}
           </h2>
@@ -163,86 +165,100 @@
   </div>
   <div class="mcs-container column">
     {if !empty($SEARCH_ID)}
-      {include file='themes/default/template/include/search_filters.inc.tpl'}
+      {include file='include/search_filters.inc.tpl'}
     {/if}
   </div>
+  {if !isset($SEARCH_ID) and !isset($tag) and !isset($page.section)}
+    <div class="table-of-content-container">
+      <a href="{$ROOT_URL}index.php?/table_of_content" class="btn-table-of-content"
+        title="{'Table of content'|translate}">
+        <i class="icon-structure"></i>
+        {'Table of content'|translate}
+      </a>
+    </div>
+  {/if}
   {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
-  {if !empty($no_search_results)}
-    <p class="search_results">{'No results for'|@translate} :
-      <em><strong>
-          {foreach $no_search_results as $res}
-            {if !$res@first} &mdash; {/if}{$res}
-          {/foreach}
-        </strong></em>
-    </p>
-  {/if}
+  {if isset($page.section) and $page.section == 'table_of_content'}
 
-  {if !empty($category_search_results)}
-    <p class="search_results">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
-      <em><strong>
-          {foreach from=$category_search_results item=res name=res_loop}
-            {if !$smarty.foreach.res_loop.first} &mdash; {/if}{$res}
-          {/foreach}
-        </strong></em>
-    </p>
-  {/if}
-
-  {if !empty($tag_search_results)}
-    <p class="search_results">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
-      <em><strong>
-          {foreach from=$tag_search_results item=tag name=res_loop}
-            {if !$smarty.foreach.res_loop.first} &mdash; {/if} <a href="{$tag.URL}">{$tag.name}</a>
-          {/foreach}
-        </strong></em>
-    </p>
-  {/if}
-
-  {if isset($FILE_CHRONOLOGY_VIEW)}
-    <div style="display:none" id="macadam-chronology-debug">
-      FILE_CHRONOLOGY_VIEW={$FILE_CHRONOLOGY_VIEW|escape}
-      | U_MODE_POSTED={if isset($U_MODE_POSTED)}{$U_MODE_POSTED|escape}{/if}
-      | U_MODE_CREATED={if isset($U_MODE_CREATED)}{$U_MODE_CREATED|escape}{/if}
-    </div>
-    {include file=$FILE_CHRONOLOGY_VIEW}
+    {if !empty($CONTENT)}{$CONTENT}{/if}
   {else}
-    <div style="display:none" id="macadam-chronology-debug">FILE_CHRONOLOGY_VIEW=unset |
-      U_MODE_POSTED={if isset($U_MODE_POSTED)}{$U_MODE_POSTED|escape}{/if} |
-      U_MODE_CREATED={if isset($U_MODE_CREATED)}{$U_MODE_CREATED|escape}{/if}
-    </div>
-  {/if}
+    {if !empty($no_search_results)}
+      <p class="search_results">{'No results for'|@translate} :
+        <em><strong>
+            {foreach $no_search_results as $res}
+              {if !$res@first} &mdash; {/if}{$res}
+            {/foreach}
+          </strong></em>
+      </p>
+    {/if}
 
-  {if !empty($CONTENT_DESCRIPTION)}
-    <div class="additional_info">
-      {$CONTENT_DESCRIPTION}
-    </div>
-  {/if}
+    {if !empty($category_search_results)}
+      <p class="search_results">{'Album results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+        <em><strong>
+            {foreach from=$category_search_results item=res name=res_loop}
+              {if !$smarty.foreach.res_loop.first} &mdash; {/if}{$res}
+            {/foreach}
+          </strong></em>
+      </p>
+    {/if}
 
-  {if !empty($CONTENT)}{$CONTENT}{/if}
-  {if !empty($CATEGORIES)}{$CATEGORIES}{/if}
+    {if !empty($tag_search_results)}
+      <p class="search_results">{'Tag results for'|@translate} <strong>{$QUERY_SEARCH}</strong> :
+        <em><strong>
+            {foreach from=$tag_search_results item=tag name=res_loop}
+              {if !$smarty.foreach.res_loop.first} &mdash; {/if} <a href="{$tag.URL}">{$tag.name}</a>
+            {/foreach}
+          </strong></em>
+      </p>
+    {/if}
 
-  {if !empty($cats_navbar)}
-    {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
-  {/if}
-
-  {if !empty($THUMBNAILS)}
-    <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
-    <ul class="thumbnails" id="thumbnails">
-      {$THUMBNAILS}
-    </ul>
-  {else if !empty($SEARCH_ID)}
-    <div class="mcs-no-result">
-      <div class="text">
-        <span class="top">{'No results are available.'|@translate}</span>
-        <span class="bot">{'You can try to edit your filters and perform a new search.'|translate}</span>
+    {if isset($FILE_CHRONOLOGY_VIEW)}
+      <div style="display:none" id="macadam-chronology-debug">
+        FILE_CHRONOLOGY_VIEW={$FILE_CHRONOLOGY_VIEW|escape}
+        | U_MODE_POSTED={if isset($U_MODE_POSTED)}{$U_MODE_POSTED|escape}{/if}
+        | U_MODE_CREATED={if isset($U_MODE_CREATED)}{$U_MODE_CREATED|escape}{/if}
       </div>
-    </div>
-  {/if}
+      {include file=$FILE_CHRONOLOGY_VIEW}
+    {else}
+      <div style="display:none" id="macadam-chronology-debug">FILE_CHRONOLOGY_VIEW=unset |
+        U_MODE_POSTED={if isset($U_MODE_POSTED)}{$U_MODE_POSTED|escape}{/if} |
+        U_MODE_CREATED={if isset($U_MODE_CREATED)}{$U_MODE_CREATED|escape}{/if}
+      </div>
+    {/if}
 
-  {if !empty($thumb_navbar)}
-    {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}
+    {if !empty($CONTENT_DESCRIPTION)}
+      <div class="additional_info">
+        {$CONTENT_DESCRIPTION}
+      </div>
+    {/if}
+
+    {if !empty($CONTENT)}{$CONTENT}{/if}
+    {if !empty($CATEGORIES)}{$CATEGORIES}{/if}
+
+    {if !empty($cats_navbar)}
+      {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$cats_navbar}
+    {/if}
+
+    {if !empty($THUMBNAILS)}
+      <div class="loader"><img src="{$ROOT_URL}{$themeconf.img_dir}/ajax_loader.gif"></div>
+      <ul class="thumbnails" id="thumbnails">
+        {$THUMBNAILS}
+      </ul>
+    {else if !empty($SEARCH_ID)}
+      <div class="mcs-no-result">
+        <div class="text">
+          <span class="top">{'No results are available.'|@translate}</span>
+          <span class="bot">{'You can try to edit your filters and perform a new search.'|translate}</span>
+        </div>
+      </div>
+    {/if}
+
+    {if !empty($thumb_navbar)}
+      {include file='navigation_bar.tpl'|@get_extent:'navbar' navbar=$thumb_navbar}
+    {/if}
+    {if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_END}{/if}
   {/if}
-  {if !empty($PLUGIN_INDEX_CONTENT_END)}{$PLUGIN_INDEX_CONTENT_END}{/if}
 </div>
 
 {footer_script}

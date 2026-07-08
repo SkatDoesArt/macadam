@@ -72,7 +72,7 @@ BODY {
 .macadam-breadcrumb-zone i {
   font-size: 22px;
   margin-right: 8px;
-  /* color: #777777; */
+  color: #777777;
 }
 
 .macadam-index-bar i {
@@ -392,6 +392,136 @@ span.tag-separator-plus .icon-plus {
   color: #434980;
   margin-right: 0 !important;
 }
+
+/* TABLE OF CONTENT BTN  */
+
+.btn-table-of-content {
+  display: inline-flex;
+  align-items: center;
+  background-color: #5865F2; 
+  color: #ffffff;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+  gap: 6px;
+}
+
+.table-of-content-container {
+  margin-top: -50px;
+  margin-bottom: 20px;
+  padding: 0 4%;
+}
+
+.btn-table-of-content:hover {
+  background-color: #4752C4;
+  color: #ffffff;
+}
+
+/* TABLE OF CONTENT */
+
+.toc-panel {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 15px 4% 0px 4%;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.toc-album-list, 
+.sub-album-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-album-item .album-item-row {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  gap: 10px;
+}
+
+.album-toggle, 
+.album-toggle-disabled {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  font-size: 14px;
+}
+
+.album-toggle {
+  cursor: pointer;
+  color: #5865F2;
+}
+
+.album-toggle-disabled {
+  color: #cbd5e1;
+}
+
+.toc-album-item .album-toggle i,
+.toc-album-item .album-toggle-disabled i {
+  display: inline-block; 
+}
+
+.toc-album-item .album-toggle i {
+  transition: transform 0.2s ease;
+  transform: rotate(0deg);
+}
+
+.toc-album-item .album-toggle-disabled i {
+  opacity: 0.4;
+}
+
+.album-link {
+  color: #1e293b;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.album-link:hover {
+  color: #5865F2;
+}
+
+.album-counts {
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 5px;
+}
+
+.album-count {
+  background-color: #DFE2FD;
+  color: #2A2D4A;
+  padding: 2px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.album-count i {
+  font-size: 11px;
+}
+
+.toc-album-item .sub-album-list {
+  display: none;
+}
+
+.toc-album-item.expanded > .sub-album-list {
+  display: block;
+}
+
+.toc-album-item.expanded > .album-item-row .album-toggle i {
+  transform: rotate(90deg);
+}
+
 
 @media (max-width: 768px) {
   html,
