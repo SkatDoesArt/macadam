@@ -398,8 +398,12 @@ span.tag-separator-plus .icon-plus {
 .btn-table-of-content {
   display: inline-flex;
   align-items: center;
-  background-color: #5865F2; 
-  color: #ffffff;
+  justify-content: center;
+  /* background-color: #5865F2;  */
+  /* color: #ffffff; */
+  color: var(--menu-icon-hover) !important;
+  font-family: "Open Sans", sans-serif;
+  font-weight: 600 !important;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 14px;
@@ -413,11 +417,17 @@ span.tag-separator-plus .icon-plus {
   margin-top: -50px;
   margin-bottom: 20px;
   padding: 0 4%;
+  margin-left: 9%;
+  margin-right: 9%;
 }
 
-.btn-table-of-content:hover {
+/* .btn-table-of-content:hover {
   background-color: #4752C4;
   color: #ffffff;
+} */
+
+.table-of-content-cont{
+  justify-content: center;
 }
 
 /* TABLE OF CONTENT */

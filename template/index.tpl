@@ -168,7 +168,7 @@
       {include file='include/search_filters.inc.tpl'}
     {/if}
   </div>
-  {if !isset($SEARCH_ID) and !isset($tag) and !isset($page.section)}
+  {* {if !isset($SEARCH_ID) and !isset($tag) and !isset($page.section)}
     <div class="table-of-content-container">
       <a href="{$ROOT_URL}index.php?/table_of_content" class="btn-table-of-content"
         title="{'Table of content'|translate}">
@@ -176,7 +176,7 @@
         {'Table of content'|translate}
       </a>
     </div>
-  {/if}
+  {/if} *}
   {if !empty($PLUGIN_INDEX_CONTENT_BEGIN)}{$PLUGIN_INDEX_CONTENT_BEGIN}{/if}
 
   {if isset($page.section) and $page.section == 'table_of_content'}

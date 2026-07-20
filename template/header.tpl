@@ -87,8 +87,7 @@
     <div class="mobile-menu-overlay"></div>
     <div class="sidebar-menu-links">
       <a href="{$U_HOME}" class="sidebar-icon-link" title="{'Home'|translate}"><i class="icon-home"></i></a>
-      <a href="{$ROOT_URL}search.php" class="sidebar-icon-link" title="{'Search'|translate}"><i
-          class="icon-lens"></i></a>
+      <a href="{$ROOT_URL}search.php" class="sidebar-icon-link" title="{'Search'|translate}"><i class="icon-lens"></i></a>
 
       {* Dropdown container for Albums *}
       <div class="sidebar-dropdown-container">
@@ -100,6 +99,7 @@
           <div class="dropdown-menu-title">{'Albums'|translate}</div>
           <ul class="album-dropdown-list">
             {if isset($MACADAM_HEADER_ALBUMS) && !empty($MACADAM_HEADER_ALBUMS)}
+              
               {* Define a recursive function to handle infinite album depth *}
               {function name=render_album_list depth=0}
                 {foreach from=$albums item=album}
@@ -138,6 +138,13 @@
                   <div class="album-item-row"><a href="#">{'No albums'|translate}</a></div>
                 </li>
               {/if}
+              <div class="album-item-row table-of-content-cont">
+                <a href="{$ROOT_URL}index.php?/table_of_content" class="btn-table-of-content"
+                  title="{'Table of content'|translate}">
+                  <i class="icon-structure"></i>
+                  {'Table of content'|translate}
+                </a>
+              </div>
           </ul>
 
           {if isset($MACADAM_TOTAL_ALBUMS) && $MACADAM_TOTAL_ALBUMS > 0}
